@@ -1,10 +1,16 @@
 ﻿#pragma once
-#include"IScene.h"
+#include"BaseScene.h"
 #include"Sprite.h"
 #include"Object3d.h"
 
-class GamePlayScene : public IScene {
+
+class DirectXCommon;
+
+
+class GamePlayScene : public BaseScene {
 public:
+	GamePlayScene(SceneManager* sceneManager);
+	
 	void Initialize() override;
 
 	void Finalize() override;

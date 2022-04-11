@@ -1,6 +1,12 @@
 #pragma once
-class IScene {
+
+class SceneManager;
+
+//ƒV[ƒ“Šî’ê
+class BaseScene {
 public:
+	BaseScene(SceneManager* sceneManager);
+
 	virtual void Initialize() = 0;
 
 	virtual void Finalize() = 0;
@@ -8,6 +14,9 @@ public:
 	virtual void Update() = 0;
 
 	virtual void Draw() = 0;
+
+private:
+	SceneManager* sceneManager_ = nullptr;
 
 };
 

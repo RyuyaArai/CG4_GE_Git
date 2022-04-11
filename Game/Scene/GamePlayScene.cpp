@@ -1,6 +1,12 @@
 ﻿#include "GamePlayScene.h"
+#include "SceneManager.h"
 #include "Input.h"
 #include "DirectXCommon.h"
+
+GamePlayScene::GamePlayScene(SceneManager* sceneManager)
+	:BaseScene(sceneManager)
+{
+}
 
 void GamePlayScene::Initialize() {
 	SpriteCommon* spriteCommon = SpriteCommon::GetInstance();
@@ -106,7 +112,7 @@ void GamePlayScene::Update() {
 }
 
 void GamePlayScene::Draw() {
-	Object3d::PreDraw();
+	Object3d::PreDraw(DirectXCommon::GetInstance()->GetCmdList());
 	objPost->Draw();
 	objChr->Draw();
 

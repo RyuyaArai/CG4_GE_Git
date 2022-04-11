@@ -1,6 +1,12 @@
 ﻿#include "TitleScene.h"
+#include "SceneManager.h"
 #include "Input.h"
 #include "DirectXCommon.h"
+
+TitleScene::TitleScene(SceneManager* sceneManager)
+	:BaseScene(sceneManager)
+{
+}
 
 void TitleScene::Initialize() {
 	SpriteCommon* spriteCommon = SpriteCommon::GetInstance();

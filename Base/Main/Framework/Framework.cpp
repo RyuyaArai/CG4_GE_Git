@@ -38,8 +38,11 @@ void Framework::Initialize() {
 	spriteCommon_ = SpriteCommon::GetInstance();
 	spriteCommon_->initialize(dxCommon_->GetDev(), dxCommon_->GetCmdList(), winApp_->window_width, winApp_->window_height);
 
+	Object3d::StaticInitialize(dxCommon_->GetDev());
 
-	Object3d::StaticInitialize(dxCommon_->GetDev(),dxCommon_->GetCmdList() ,winApp_->window_width, winApp_->window_height);
+	camera = new DebugCamera(WinApp::window_width, WinApp::window_height);
+	Object3d::SetCamera(camera);
+
 
 #pragma endregion DirectX初期化処理
 
@@ -65,13 +68,13 @@ void Framework::Update() {
 	}
 #pragma endregion ウィンドウメッセージ処理
 	input_->Update();
-	scene_->Update();
+	sceneManager_->Update();
 }
 
 void Framework::Draw() {
 	dxCommon_->PreDraw();
 
-	scene_->Draw();
+	sceneManager_->Draw();
 
 	dxCommon_->PostDraw();
 }

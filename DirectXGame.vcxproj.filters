@@ -64,6 +64,12 @@
     <Filter Include="ヘッダー ファイル\base\GameBase">
       <UniqueIdentifier>{6069a489-a2be-4b04-b302-a12c415f82bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\base\Camera">
+      <UniqueIdentifier>{1a01dfba-aa35-480f-96d3-134ad93210ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\base\Camera">
+      <UniqueIdentifier>{47b498d6-9102-4681-b60b-b2c9e4d2ca4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\2D,3D\2D\SpriteCommon.cpp">
@@ -103,6 +109,12 @@
       <Filter>ソース ファイル\base\GameBase</Filter>
     </ClCompile>
     <ClCompile Include="Base\Main\Framework\Framework.cpp">
+      <Filter>ソース ファイル\base\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\Main\BaseScene.cpp">
+      <Filter>ソース ファイル\base\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\Main\SceneManager\SceneManager.cpp">
       <Filter>ソース ファイル\base\Main</Filter>
     </ClCompile>
   </ItemGroup>
@@ -177,7 +189,10 @@
     <ClInclude Include="Base\Main\Framework\Framework.h">
       <Filter>ヘッダー ファイル\base\Main</Filter>
     </ClInclude>
-    <ClInclude Include="Base\Main\Iscene.h">
+    <ClInclude Include="Base\Main\BaseScene.h">
+      <Filter>ヘッダー ファイル\base\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Main\SceneManager\SceneManager.h">
       <Filter>ヘッダー ファイル\base\Main</Filter>
     </ClInclude>
   </ItemGroup>
