@@ -14,28 +14,31 @@ void GamePlayScene::Initialize() {
 	spriteCommon->LoadTexture(0, L"Resources/texture.png");
 	spriteCommon->LoadTexture(1, L"Resources/house.png");
 
+	camera = new DebugCamera(WinApp::window_width, WinApp::window_height);
+	Object3d::SetCamera(camera);
+
 	/*Sprite* sprite = Sprite::Create(spriteCommon, 0);
 	sprites.push_back(sprite);
 	sprite->SetPosition({ 500,300,0 });*/
 
-	for (int i = 0; i < 20; i++)
-	{
-		int texNum = rand() % 2;
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	int texNum = rand() % 2;
 
-		sprite = Sprite::Create(texNum, { 0,0 }, false, false);
+	//	sprite = Sprite::Create(texNum, { 0,0 }, false, false);
 
-		sprite->SetPosition({ (float)(rand() % 1280),(float)(rand() % 720),0 });
+	//	sprite->SetPosition({ (float)(rand() % 1280),(float)(rand() % 720),0 });
 
-		//sprite->SetRotation((float)(rand() % 360));
+	//	//sprite->SetRotation((float)(rand() % 360));
 
-		sprite->SetSize({ (float)(rand() % 400), (float)(rand() % 100) });
+	//	sprite->SetSize({ (float)(rand() % 400), (float)(rand() % 100) });
 
-		sprite->TransferVertexBuffer();
+	//	sprite->TransferVertexBuffer();
 
-		sprites.push_back(sprite);
-		//sprite->SetPosition({ 500,300,0 });
+	//	sprites.push_back(sprite);
+	//	//sprite->SetPosition({ 500,300,0 });
 
-	}
+	//}
 
 
 	modelPost = Model::LoadFromOBJ("posuto");
@@ -54,6 +57,9 @@ void GamePlayScene::Initialize() {
 	objPost->Update();
 	objChr->Update();
 
+	camera->SetTarget({ -10,0,-100 });
+	camera->SetEye({ 0, 0, 0 });
+
 #pragma endregion 描画初期化処理
 }
 
@@ -67,6 +73,7 @@ void GamePlayScene::Finalize() {
 	delete modelChr;
 	delete objChr;
 	delete objPost;
+	delete camera;
 
 }
 
@@ -103,6 +110,7 @@ void GamePlayScene::Update() {
 
 	objPost->Update();
 	objChr->Update();
+	camera->Update();
 	for (auto& sprite : sprites)
 	{
 		sprite->Update();

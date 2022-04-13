@@ -39,10 +39,7 @@ void Framework::Initialize() {
 	spriteCommon_->initialize(dxCommon_->GetDev(), dxCommon_->GetCmdList(), winApp_->window_width, winApp_->window_height);
 
 	Object3d::StaticInitialize(dxCommon_->GetDev());
-
-	camera = new DebugCamera(WinApp::window_width, WinApp::window_height);
-	Object3d::SetCamera(camera);
-
+	
 	sceneManager_ = new SceneManager();
 #pragma endregion DirectX初期化処理
 

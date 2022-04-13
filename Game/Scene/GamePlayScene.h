@@ -2,10 +2,10 @@
 #include"BaseScene.h"
 #include"Sprite.h"
 #include"Object3d.h"
+#include"DebugCamera.h"
 
 
 class DirectXCommon;
-
 
 class GamePlayScene : public BaseScene {
 public:
@@ -25,6 +25,7 @@ private:
 	Model* modelChr = nullptr;
 	Object3d* objPost = nullptr;
 	Object3d* objChr = nullptr;
+	DebugCamera* camera = nullptr;
 	std::vector<Sprite*> sprites;
 };
 

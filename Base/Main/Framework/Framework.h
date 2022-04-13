@@ -35,7 +35,6 @@ protected:
 	Input* input_ = nullptr;
 	SpriteCommon* spriteCommon_ = nullptr;
 	Audio* audio_ = nullptr;
-	DebugCamera* camera = nullptr;
 	SceneManager* sceneManager_ = nullptr;
 };
 
