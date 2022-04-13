@@ -146,6 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base\GameBase\Audio.cpp" />
+    <ClCompile Include="Base\GameBase\Camera\Camera.cpp" />
+    <ClCompile Include="Base\GameBase\Camera\DebugCamera.cpp" />
     <ClCompile Include="Base\GameBase\DirectXCommon.cpp" />
     <ClCompile Include="Base\GameBase\Input.cpp" />
     <ClCompile Include="Base\GameBase\WinApp.cpp" />
@@ -235,6 +237,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\GameBase\Audio.h" />
+    <ClInclude Include="Base\GameBase\Camera\Camera.h" />
+    <ClInclude Include="Base\GameBase\Camera\DebugCamera.h" />
     <ClInclude Include="Base\GameBase\DirectXCommon.h" />
     <ClInclude Include="Base\GameBase\Input.h" />
     <ClInclude Include="Base\GameBase\PipelineSet.h" />

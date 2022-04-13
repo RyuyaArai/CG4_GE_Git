@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Input.h"
 #include "DirectXCommon.h"
+#include "TitleScene.h"
 
 GamePlayScene::GamePlayScene(SceneManager* sceneManager)
 	:BaseScene(sceneManager)
@@ -106,7 +107,10 @@ void GamePlayScene::Update() {
 	{
 		sprite->Update();
 	}
-
+	if (input->TriggerKey(DIK_RETURN)) {
+		BaseScene* scene = new TitleScene(sceneManager_);
+		sceneManager_->SetNextScene(scene);
+	}
 	// DirectX毎フレーム処理　ここまで
 #pragma endregion DirectX毎フレーム処理
 }
@@ -115,7 +119,7 @@ void GamePlayScene::Draw() {
 	Object3d::PreDraw(DirectXCommon::GetInstance()->GetCmdList());
 	objPost->Draw();
 	objChr->Draw();
-
+	Object3d::PostDraw();
 	SpriteCommon::GetInstance()->PreDraw();
 	for (auto& sprite : sprites)
 	{

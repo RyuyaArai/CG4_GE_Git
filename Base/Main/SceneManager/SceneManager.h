@@ -6,6 +6,8 @@
 
 class SceneManager {
 public:
+	~SceneManager();
+
 	void Update();
 
 	void Draw();

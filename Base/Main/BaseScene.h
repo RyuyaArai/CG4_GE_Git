@@ -15,7 +15,7 @@ public:
 
 	virtual void Draw() = 0;
 
-private:
+protected:
 	SceneManager* sceneManager_ = nullptr;
 
 };

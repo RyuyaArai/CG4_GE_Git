@@ -29,7 +29,7 @@ void Framework::Initialize() {
 #pragma region DirectX初期化処理
 
 
-	dxCommon_ = new DirectXCommon();
+	dxCommon_ = DirectXCommon::GetInstance();
 	dxCommon_->Initialize(winApp_);
 
 	input_ = Input::GetInstance();
@@ -43,7 +43,7 @@ void Framework::Initialize() {
 	camera = new DebugCamera(WinApp::window_width, WinApp::window_height);
 	Object3d::SetCamera(camera);
 
-
+	sceneManager_ = new SceneManager();
 #pragma endregion DirectX初期化処理
 
 }

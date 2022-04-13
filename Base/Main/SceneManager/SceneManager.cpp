@@ -1,5 +1,12 @@
 ﻿#include "SceneManager.h"
 
+SceneManager::~SceneManager()
+{
+	//最後のシーンの終了と解放
+	scene_->Finalize();
+	delete scene_;
+}
+
 void SceneManager::Update()
 {
 	if (nextScene_) {

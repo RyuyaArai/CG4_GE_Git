@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Input.h"
 #include "DirectXCommon.h"
+#include "GamePlayScene.h"
 
 TitleScene::TitleScene(SceneManager* sceneManager)
 	:BaseScene(sceneManager)
@@ -42,6 +43,10 @@ void TitleScene::Update() {
 	{
 		// 画面クリアカラーの数値を書き換える
 		//clearColor[1] = 1.0f;
+	}
+	if (input->TriggerKey(DIK_RETURN)) {
+		BaseScene* scene = new GamePlayScene(sceneManager_);
+		sceneManager_->SetNextScene(scene);
 	}
 	sprite->Update();
 }
