@@ -74,6 +74,8 @@ public:
 
 	void SetSize(XMFLOAT2 size) { size_ = size; }
 
+	const XMFLOAT3& GetPosition() { return position_; }
+
 	void Draw();
 
 };

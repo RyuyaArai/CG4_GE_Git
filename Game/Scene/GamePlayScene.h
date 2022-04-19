@@ -21,11 +21,14 @@ public:
 
 private:
 	Sprite* sprite = nullptr;
+	Sprite* sprite2 = nullptr;
 	Model* modelPost = nullptr;
-	Model* modelChr = nullptr;
 	Object3d* objPost = nullptr;
-	Object3d* objChr = nullptr;
 	DebugCamera* camera = nullptr;
 	std::vector<Sprite*> sprites;
+private:
+	float gravity = 9.8f / 60.0f;
+	float vy = 10.0f;
+
 };
 

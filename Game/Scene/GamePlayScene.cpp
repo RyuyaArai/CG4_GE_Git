@@ -17,47 +17,21 @@ void GamePlayScene::Initialize() {
 	camera = new DebugCamera(WinApp::window_width, WinApp::window_height);
 	Object3d::SetCamera(camera);
 
-	/*Sprite* sprite = Sprite::Create(spriteCommon, 0);
-	sprites.push_back(sprite);
-	sprite->SetPosition({ 500,300,0 });*/
+	//modelPost = Model::LoadFromOBJ("posuto");
 
-	//for (int i = 0; i < 20; i++)
-	//{
-	//	int texNum = rand() % 2;
+	//objPost = Object3d::Create();
 
-	//	sprite = Sprite::Create(texNum, { 0,0 }, false, false);
+	//objPost->SetModel(modelPost);
 
-	//	sprite->SetPosition({ (float)(rand() % 1280),(float)(rand() % 720),0 });
+	//objPost->SetPosition({ 0,100,0 });
 
-	//	//sprite->SetRotation((float)(rand() % 360));
+	//objPost->Update();
 
-	//	sprite->SetSize({ (float)(rand() % 400), (float)(rand() % 100) });
+	sprite2 = Sprite::Create(1, { 0,0 }, false, false);
+	sprite2->SetPosition({ 500,500,0 });
+	sprite2->TransferVertexBuffer();
 
-	//	sprite->TransferVertexBuffer();
-
-	//	sprites.push_back(sprite);
-	//	//sprite->SetPosition({ 500,300,0 });
-
-	//}
-
-
-	modelPost = Model::LoadFromOBJ("posuto");
-	modelChr = Model::LoadFromOBJ("chr_sword");
-
-	objPost = Object3d::Create();
-	objChr = Object3d::Create();
-
-
-	objPost->SetModel(modelPost);
-	objChr->SetModel(modelPost);
-
-	objPost->SetPosition({ -10,0,-5 });
-	objChr->SetPosition({ +10,0,+5 });
-
-	objPost->Update();
-	objChr->Update();
-
-	camera->SetTarget({ -10,0,-100 });
+	camera->SetTarget({ 0,0,-10 });
 	camera->SetEye({ 0, 0, 0 });
 
 #pragma endregion 描画初期化処理
@@ -70,51 +44,31 @@ void GamePlayScene::Finalize() {
 	}
 	//delete sprite;
 	delete modelPost;
-	delete modelChr;
-	delete objChr;
 	delete objPost;
 	delete camera;
 
 }
 
 void GamePlayScene::Update() {
+
 	Input* input = Input::GetInstance();
-	objPost->SetModel(modelPost);
-	objChr->SetModel(modelPost);
-	if (input->TriggerKey(DIK_0)) // 数字の0キーが押されていたら
-	{
-		OutputDebugStringA("Hit 0\n");  // 出力ウィンドウに「Hit 0」と表示
-	}
 
 	float clearColor[] = { 0.1f,0.25f, 0.5f,0.0f }; // 青っぽい色
 
-	if (input->PushKey(DIK_SPACE))     // スペースキーが押されていたら
-	{
-		// 画面クリアカラーの数値を書き換える
-		clearColor[1] = 1.0f;
-		objPost->SetModel(modelChr);
-		objChr->SetModel(modelChr);
+	if (input->TriggerKey(DIK_SPACE)) {
+		sprite2->SetPosition({ 0.0f,400.0f,0.0f });
+		vy = 10.0f;
 	}
+	float tempY = sprite2->GetPosition().y;
 
-	// 座標操作
-	if (input->PushKey(DIK_UP) || input->PushKey(DIK_DOWN) || input->PushKey(DIK_RIGHT) || input->PushKey(DIK_LEFT))
-	{
+	vy -= gravity;
+	tempY -= vy;
 
-	}
+	sprite2->SetPosition({ 0, tempY, 0 });
 
-
-	if (input->PushKey(DIK_D) || input->PushKey(DIK_A))
-	{
-
-	}
-
-	objPost->Update();
-	objChr->Update();
+	sprite2->Update();
 	camera->Update();
-	for (auto& sprite : sprites)
-	{
-		sprite->Update();
-	}
+
 	if (input->TriggerKey(DIK_RETURN)) {
 		BaseScene* scene = new TitleScene(sceneManager_);
 		sceneManager_->SetNextScene(scene);
@@ -124,11 +78,9 @@ void GamePlayScene::Update() {
 }
 
 void GamePlayScene::Draw() {
-	Object3d::PreDraw(DirectXCommon::GetInstance()->GetCmdList());
-	objPost->Draw();
-	objChr->Draw();
-	Object3d::PostDraw();
+	//objPost->Draw();
 	SpriteCommon::GetInstance()->PreDraw();
+	sprite2->Draw();
 	for (auto& sprite : sprites)
 	{
 		sprite->Draw();
