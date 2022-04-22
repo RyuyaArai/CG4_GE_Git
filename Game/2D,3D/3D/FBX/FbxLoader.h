@@ -24,7 +24,8 @@ public:
 
 	void LoatModelFromFile(const string& modelName);
 
-	void ParseNodeRecursive(FbxModel* F_Model, FbxNode* fbxNode);
+	void ParseNodeRecursive(
+		FbxModel* F_Model, FbxNode* fbxNode, Node* parent = nullptr);
 
 private:
 	// privateなコンストラクタ（シングルトンパターン）
