@@ -70,6 +70,12 @@
     <Filter Include="ソース ファイル\base\GameBase\Camera">
       <UniqueIdentifier>{1a01dfba-aa35-480f-96d3-134ad93210ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\game\2D,3Dobject\FBX">
+      <UniqueIdentifier>{4362a64e-7f95-4198-8e5f-eac8d30c6d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\game\2D,3Dobject\FBX">
+      <UniqueIdentifier>{62c696cf-7534-4513-8d15-93fea04014e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\2D,3D\2D\SpriteCommon.cpp">
@@ -122,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="Base\GameBase\Camera\DebugCamera.cpp">
       <Filter>ソース ファイル\base\GameBase\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\2D,3D\3D\FBX\FbxLoader.cpp">
+      <Filter>ソース ファイル\game\2D,3Dobject\FBX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +215,9 @@
     </ClInclude>
     <ClInclude Include="Base\GameBase\Camera\Camera.h">
       <Filter>ヘッダー ファイル\base\GameBase\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\2D,3D\3D\FBX\FbxLoader.h">
+      <Filter>ヘッダー ファイル\game\2D,3Dobject\FBX</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

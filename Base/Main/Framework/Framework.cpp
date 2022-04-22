@@ -1,4 +1,5 @@
 ﻿#include "Framework.h"
+#include "FbxLoader.h"
 
 void Framework::Run() {
 	Initialize();
@@ -41,6 +42,10 @@ void Framework::Initialize() {
 	Object3d::StaticInitialize(dxCommon_->GetDev());
 	
 	sceneManager_ = new SceneManager();
+
+	FbxLoader::GetInstance()->Initialize(dxCommon_->GetDev());
+
+	FbxLoader::GetInstance()->Finalize();
 #pragma endregion DirectX初期化処理
 
 }
