@@ -45,7 +45,6 @@ void Framework::Initialize() {
 
 	FbxLoader::GetInstance()->Initialize(dxCommon_->GetDev());
 
-	FbxLoader::GetInstance()->Finalize();
 #pragma endregion DirectX初期化処理
 
 }
@@ -55,6 +54,7 @@ void Framework::Finalize() {
 // xAudio2.Reset();
  // 音声データ解放
 // SoundUnload(&soundData1);
+	FbxLoader::GetInstance()->Finalize();
 
 #pragma region WindowsAPI後始末
 	winApp_->Finalize();

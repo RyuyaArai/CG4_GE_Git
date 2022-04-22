@@ -18,6 +18,16 @@ public:
 	void Update() override;
 
 	void Draw() override;
+private:
+	//初期化処理
+	void Create3D_object();
+	void Create2D_object();
+	void SpriteLoadTex();
+	void CameraCreateSet();
+private:
+	//更新
+	void ChangeScene();
+	void ClassUpdate();
 
 private:
 	Sprite* sprite = nullptr;

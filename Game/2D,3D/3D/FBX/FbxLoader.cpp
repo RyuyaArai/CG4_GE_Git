@@ -2,6 +2,9 @@
 
 #include <cassert>
 
+const std::string FbxLoader::baseDirectory = "Resources/";
+
+
 FbxLoader* FbxLoader::GetInstance()
 {
     static FbxLoader instance;
@@ -27,4 +30,19 @@ void FbxLoader::Finalize() {
 
     fbxImporter->Destroy();
     fbxManager->Destroy();
+}
+
+void FbxLoader::LoatModelFromFile(const string& modelName) {
+    
+    const string directoryPath = baseDirectory + modelName + "/";
+    const string fileName = modelName + ".fbx";
+    const string fullpath = directoryPath + fileName;
+
+    if (!fbxImporter->Initialize(fullpath.c_str(), -1, fbxManager->GetIOSettings())) {
+        assert(0);
+    }
+    //シーン生成
+    FbxScene* fbxScene = FbxScene::Create(fbxManager, "fbxScene");
+    //ファイルからロードしたFBXの情報をシーンにインポート
+    fbxImporter->Import(fbxScene);
 }

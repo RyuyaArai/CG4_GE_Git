@@ -161,6 +161,7 @@
     <ClCompile Include="Base\Main\BaseScene.cpp" />
     <ClCompile Include="Base\Main\Framework\Framework.cpp" />
     <ClCompile Include="Base\Main\SceneManager\SceneManager.cpp" />
+    <ClCompile Include="FbxModel.cpp" />
     <ClCompile Include="Game\2D,3D\2D\Sprite.cpp" />
     <ClCompile Include="Game\2D,3D\2D\SpriteCommon.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxLoader.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="Base\Main\BaseScene.h" />
     <ClInclude Include="Base\Main\Framework\Framework.h" />
     <ClInclude Include="Base\Main\SceneManager\SceneManager.h" />
+    <ClInclude Include="FbxModel.h" />
     <ClInclude Include="Game\2D,3D\2D\Sprite.h" />
     <ClInclude Include="Game\2D,3D\2D\SpriteCommon.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxLoader.h" />

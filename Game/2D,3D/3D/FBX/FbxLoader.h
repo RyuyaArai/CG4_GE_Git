@@ -4,19 +4,24 @@
 
 #include <d3d12.h>
 #include <d3dx12.h>
+#include <string>
 
-class FbxLoader
-{
+class FbxLoader {
+
+private:
+	using string = std::string;
+
 public:
-	/// <summary>
-	/// シングルトンインスタンスの取得
-	/// </summary>
-	/// <returns>インスタンス</returns>
+	static const string baseDirectory;
+
+public:
 	static FbxLoader* GetInstance();
 
 	void Initialize(ID3D12Device* device);
 
 	void Finalize();
+
+	void LoatModelFromFile(const string& modelName);
 
 private:
 	// privateなコンストラクタ（シングルトンパターン）
