@@ -25,6 +25,8 @@ class FbxModel {
 public:
 	friend class FbxLoader;
 
+	
+
 private:
 	std::string name;
 	std::vector<Node> nodes;

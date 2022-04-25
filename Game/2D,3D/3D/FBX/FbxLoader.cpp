@@ -1,4 +1,5 @@
 ﻿#include "FbxLoader.h"
+#include "FbxMeshLoader.h"
 
 #include <cassert>
 
@@ -99,6 +100,7 @@ void FbxLoader::ParseNodeRecursive(FbxModel* F_Model, FbxNode* fbxNode, Node* pa
         node.globalTransform *= parent->globalTransform;
     }
     //FBXノードのメッシュ情報を解析()
+    fbxMeshLoader->ParseMeshNode(F_Model, fbxNode, &node);
     
     //子ノードに対して再帰呼び出し
     for (int i = 0; i < fbxNode->GetChildCount(); i++) {

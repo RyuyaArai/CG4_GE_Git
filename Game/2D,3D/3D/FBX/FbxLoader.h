@@ -7,10 +7,14 @@
 #include <d3dx12.h>
 #include <string>
 
+class FbxMeshLoader;
+
 class FbxLoader {
 
 private:
 	using string = std::string;
+
+	FbxMeshLoader* fbxMeshLoader;
 
 public:
 	static const string baseDirectory;
