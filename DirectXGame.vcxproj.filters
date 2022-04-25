@@ -135,8 +135,8 @@
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxModel.cpp">
       <Filter>ソース ファイル\game\2D,3Dobject\FBX</Filter>
     </ClCompile>
-    <ClCompile Include="FbxMeshLoader.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Game\2D,3D\3D\FBX\FbxMeshLoader.cpp">
+      <Filter>ソース ファイル\game\2D,3Dobject\FBX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,8 +228,8 @@
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxModel.h">
       <Filter>ヘッダー ファイル\game\2D,3Dobject\FBX</Filter>
     </ClInclude>
-    <ClInclude Include="FbxMeshLoader.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Game\2D,3D\3D\FBX\FbxMeshLoader.h">
+      <Filter>ヘッダー ファイル\game\2D,3Dobject\FBX</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
