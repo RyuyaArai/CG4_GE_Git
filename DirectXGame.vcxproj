@@ -164,7 +164,6 @@
     <ClCompile Include="Game\2D,3D\2D\Sprite.cpp" />
     <ClCompile Include="Game\2D,3D\2D\SpriteCommon.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxLoader.cpp" />
-    <ClCompile Include="Game\2D,3D\3D\FBX\FbxMeshLoader.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxModel.cpp" />
     <ClCompile Include="Game\2D,3D\3D\Model.cpp" />
     <ClCompile Include="Game\2D,3D\3D\Object3d.cpp" />
@@ -259,7 +258,6 @@
     <ClInclude Include="Game\2D,3D\2D\Sprite.h" />
     <ClInclude Include="Game\2D,3D\2D\SpriteCommon.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxLoader.h" />
-    <ClInclude Include="Game\2D,3D\3D\FBX\FbxMeshLoader.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxModel.h" />
     <ClInclude Include="Game\2D,3D\3D\Model.h" />
     <ClInclude Include="Game\2D,3D\3D\Object3d.h" />
