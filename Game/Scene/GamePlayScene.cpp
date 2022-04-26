@@ -4,6 +4,7 @@
 #include "DirectXCommon.h"
 #include "TitleScene.h"
 #include "FbxLoader.h"
+#include "FbxObject3d.h"
 
 GamePlayScene::GamePlayScene(SceneManager* sceneManager)
 	:BaseScene(sceneManager)
@@ -16,8 +17,9 @@ void GamePlayScene::Initialize() {
 	SpriteLoadTex();
 	Create2D_object();
 	Create3D_object();
-	FbxLoader::GetInstance()->LoatModelFromFile("cube");
-
+	FbxLoader::GetInstance()->LoadModelFromFile("cube");
+	FbxObject3d::SetDevice(DirectXCommon::GetInstance()->GetDev());
+	FbxObject3d::SetCamera(camera);
 }
 
 void GamePlayScene::Finalize() {

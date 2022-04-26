@@ -76,6 +76,9 @@
     <Filter Include="ヘッダー ファイル\game\2D,3Dobject\FBX">
       <UniqueIdentifier>{62c696cf-7534-4513-8d15-93fea04014e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="シェーダーファイル\FBX">
+      <UniqueIdentifier>{606d9cc9-56b3-4b53-8891-f0b5f9f863b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\2D,3D\2D\SpriteCommon.cpp">
@@ -135,6 +138,9 @@
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxModel.cpp">
       <Filter>ソース ファイル\game\2D,3Dobject\FBX</Filter>
     </ClCompile>
+    <ClCompile Include="Game\2D,3D\3D\FBX\FbxObject3d.cpp">
+      <Filter>ソース ファイル\game\2D,3Dobject\FBX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Basic.hlsli">
@@ -145,6 +151,9 @@
     </None>
     <None Include="Resources\shaders\OBJShaderHeader.hlsli">
       <Filter>シェーダーファイル</Filter>
+    </None>
+    <None Include="Resources\shaders\FBX.hlsli">
+      <Filter>シェーダーファイル\FBX</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +174,12 @@
     </FxCompile>
     <FxCompile Include="Resources\shaders\OBJVS.hlsl">
       <Filter>シェーダーファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\FBXPS.hlsl">
+      <Filter>シェーダーファイル\FBX</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\FBXVS.hlsl">
+      <Filter>シェーダーファイル\FBX</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +238,9 @@
       <Filter>ヘッダー ファイル\game\2D,3Dobject\FBX</Filter>
     </ClInclude>
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxModel.h">
+      <Filter>ヘッダー ファイル\game\2D,3Dobject\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\2D,3D\3D\FBX\FbxObject3d.h">
       <Filter>ヘッダー ファイル\game\2D,3Dobject\FBX</Filter>
     </ClInclude>
   </ItemGroup>
