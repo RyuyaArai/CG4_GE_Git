@@ -1,7 +1,13 @@
 #pragma once
+#include <Windows.h>
+#include <wrl.h>
 #include <string>
-#include <DirectXMath.h>
 #include <vector>
+
+#include <DirectXMath.h>
+#include <DirectXTex.h>
+#include <d3d12.h>
+#include <d3dx12.h>
 
 struct Node {
 	//名前
@@ -21,25 +27,55 @@ struct Node {
 };
 
 class FbxModel {
+private:
+	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+	template <class T> using vector = std::vector<T>;
+	// DirectX::を省略
+	using XMFLOAT2 = DirectX::XMFLOAT2;
+	using XMFLOAT3 = DirectX::XMFLOAT3;
+	using XMFLOAT4 = DirectX::XMFLOAT4;
+	using XMMATRIX = DirectX::XMMATRIX;
+	using TexMetadata = DirectX::TexMetadata;
+	using ScratchImage = DirectX::ScratchImage;
+	using string = std::string;
+
 public:
 	friend class FbxLoader;
 public:
 	struct VertexPosNormalUv {
-		DirectX::XMFLOAT3 pos;
-		DirectX::XMFLOAT3 normal;
-		DirectX::XMFLOAT2 uv;
+		XMFLOAT3 pos;
+		XMFLOAT3 normal;
+		XMFLOAT2 uv;
 	};
 
 private:
 	std::string name;
 	std::vector<Node> nodes;
-private:
-	//メッシュを持つノード
+
 	Node* meshNode = nullptr;
-	//頂点データ配列
 	std::vector<VertexPosNormalUv> vertices;
-	//頂点インデックス配列
 	std::vector<unsigned short> indices;
 
+	//アンビエント係数
+	XMFLOAT3 ambient = { 1,1,1 };
+	//ディフューズ係数
+	XMFLOAT3 diffuse = { 1,1,1 };
+	//テクスチャメタデータ
+	TexMetadata metadata = {};
+	//スクラッチイメージ
+	ScratchImage scrachImg = {};
+
+	ComPtr<ID3D12Resource> vertBuff;
+	ComPtr<ID3D12Resource> indexBuff;
+	ComPtr<ID3D12Resource> texBuff;
+	D3D12_VERTEX_BUFFER_VIEW vbview = {};
+	D3D12_INDEX_BUFFER_VIEW ibview = {};
+	ComPtr<ID3D12DescriptorHeap> descHeapSRV;
+
+public:
+	void CreateBuffers(ID3D12Device* device);
+	void Draw(ID3D12GraphicsCommandList* cmdList);
+
+	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
 };
 

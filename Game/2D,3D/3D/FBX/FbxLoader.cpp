@@ -1,13 +1,11 @@
 ﻿#include "FbxLoader.h"
-#include "FbxMeshLoader.h"
 
 #include <cassert>
 
 using namespace DirectX;
 
-
 const std::string FbxLoader::baseDirectory = "Resources/";
-
+const std::string FbxLoader::defaultTextureFileName = "white1x1.png";
 
 FbxLoader* FbxLoader::GetInstance()
 {
@@ -36,7 +34,7 @@ void FbxLoader::Finalize() {
     fbxManager->Destroy();
 }
 
-void FbxLoader::LoatModelFromFile(const string& modelName) {
+void FbxLoader::LoadModelFromFile(const string& modelName) {
     
     const string directoryPath = baseDirectory + modelName + "/";
     const string fileName = modelName + ".fbx";
@@ -51,22 +49,24 @@ void FbxLoader::LoatModelFromFile(const string& modelName) {
     fbxImporter->Import(fbxScene);
     
     //モデル生成
-    FbxModel* F_Model = new FbxModel();
-    F_Model->name = modelName;
+    FbxModel* fbxModel = new FbxModel();
+    fbxModel->name = modelName;
     //FBXノードの数を取得
     int nodeCount = fbxScene->GetNodeCount();
     //あらかじめ必要数分のメモリを確保することでアドレスがずれるのを予防
-    F_Model->nodes.reserve(nodeCount);
+    fbxModel->nodes.reserve(nodeCount);
     //ルートノードから順に解析してモデルに流し込む
-    ParseNodeRecursive(F_Model, fbxScene->GetRootNode());
+    ParseNodeRecursive(fbxModel, fbxScene->GetRootNode());
     //FBXシーン開放
     fbxScene->Destroy();
+
+    fbxModel->CreateBuffers(device);
 }
 
-void FbxLoader::ParseNodeRecursive(FbxModel* F_Model, FbxNode* fbxNode, Node* parent) {
+void FbxLoader::ParseNodeRecursive(FbxModel* fbxModel, FbxNode* fbxNode, Node* parent) {
     //モデルにノードを追加()
-    F_Model->nodes.emplace_back();
-    Node& node = F_Model->nodes.back();
+    fbxModel->nodes.emplace_back();
+    Node& node = fbxModel->nodes.back();
     //ノード名を取得
     string name = fbxNode->GetName();
     //FBXノードのローカル移動情報
@@ -105,13 +105,13 @@ void FbxLoader::ParseNodeRecursive(FbxModel* F_Model, FbxNode* fbxNode, Node* pa
 
     if (fbxNodeAttribute) {
         if (fbxNodeAttribute->GetAttributeType() == FbxNodeAttribute::eMesh) {
-            F_Model->meshNode = &node;
-            ParseMesh(F_Model, fbxNode);
+            fbxModel->meshNode = &node;
+            ParseMesh(fbxModel, fbxNode);
         }
     }
     //子ノードに対して再帰呼び出し
     for (int i = 0; i < fbxNode->GetChildCount(); i++) {
-        ParseNodeRecursive(F_Model, fbxNode->GetChild(i), &node);
+        ParseNodeRecursive(fbxModel, fbxNode->GetChild(i), &node);
     }
 }
 
@@ -172,7 +172,7 @@ void FbxLoader::ParseMeshFaces(FbxModel* fbxModel, FbxMesh* fbxMesh) {
         assert(polygonSize <= 4);
 
         //1頂点ずつ処理
-        for (int j; j < polygonSize; j++) {
+        for (int j = 0; j < polygonSize; j++) {
             //FBX頂点配列のインデックス
             int index = fbxMesh->GetPolygonVertex(i, j);
             assert(index >= 0);
@@ -214,4 +214,86 @@ void FbxLoader::ParseMeshFaces(FbxModel* fbxModel, FbxMesh* fbxMesh) {
             }
         }
     }
+}
+
+void FbxLoader::ParseMaterial(FbxModel* fbxModel, FbxNode* fbxNode) {
+    const int materialCount = fbxNode->GetMaterialCount();
+    if (materialCount > 0) {
+        //戦闘のマテリアルを取得
+        FbxSurfaceMaterial* material = fbxNode->GetMaterial(0);
+        //テクスチャを読み込んだかどうかを表すフラグ
+        bool textureLoaded = false;
+
+        if (material) {
+            if (material->GetClassId().Is(FbxSurfaceLambert::ClassId)) {
+                FbxSurfaceLambert* lambert =
+                    static_cast<FbxSurfaceLambert*>(material);
+
+                //環境光係数
+                FbxPropertyT<FbxDouble3> ambient = lambert->Ambient;
+                fbxModel->ambient.x = (float)ambient.Get()[0];
+                fbxModel->ambient.y = (float)ambient.Get()[1];
+                fbxModel->ambient.z = (float)ambient.Get()[2];
+                //拡散反射光係数
+                FbxPropertyT<FbxDouble3> diffuse = lambert->Diffuse;
+                fbxModel->diffuse.x = (float)diffuse.Get()[0];
+                fbxModel->diffuse.y = (float)diffuse.Get()[1];
+                fbxModel->diffuse.z = (float)diffuse.Get()[2];
+                
+                //ディフューズテクスチャを取り出す
+                const FbxProperty diffuseProperty =
+                    material->FindProperty(FbxSurfaceMaterial::sDiffuse);
+                if (diffuseProperty.IsValid()) {
+                    const FbxFileTexture* texture = diffuseProperty.GetSrcObject<FbxFileTexture>();
+                    if (texture) {
+                        const char* filepath = texture->GetFileName();
+                        //ファイルパスからファイル名抽出
+                        string path_str(filepath);
+                        string name = ExtractFileName(path_str);
+                        //テクスチャ読み込み
+                        LoadTexture(fbxModel, baseDirectory + fbxModel->name + "/" + name);
+                        textureLoaded = true;
+                    }
+                }
+
+            }
+        }
+        //テクスチャがない場合は白テクスチャを張る
+        if (!textureLoaded) {
+            LoadTexture(fbxModel, baseDirectory + defaultTextureFileName);
+        }
+    }
+}
+
+void FbxLoader::LoadTexture(FbxModel* fbxModel, const std::string& fullpath) {
+    HRESULT result = S_FALSE;
+    //WICテクスチャのロード
+    TexMetadata& metadata = fbxModel->metadata;
+    ScratchImage& scratchImg = fbxModel->scrachImg;
+    //Unicode文字列に変換
+    wchar_t wfilepath[128];
+    MultiByteToWideChar(CP_ACP, 0, fullpath.c_str(), -1, wfilepath, _countof(wfilepath));
+    result = LoadFromWICFile(
+        wfilepath, WIC_FLAGS_NONE,
+        &metadata, scratchImg
+    );
+    if (FAILED(result)) {
+        assert(0);
+    }
+}
+
+std::string FbxLoader::ExtractFileName(const std::string& path) {
+    size_t pos1;
+    //区切り文字'\\'が出てくる一番最後の部分を検索
+    pos1 = path.rfind('\\');
+    if (pos1 != string::npos) {
+        return path.substr(pos1 + 1, path.size() - pos1 - 1);
+    }
+    //区切り文字'/'が出てくる一番最後の部分を検索
+    pos1 = path.rfind('/');
+    if (pos1 != string::npos) {
+        return path.substr(pos1 + 1, path.size() - pos1 - 1);
+    }
+
+    return path;
 }
