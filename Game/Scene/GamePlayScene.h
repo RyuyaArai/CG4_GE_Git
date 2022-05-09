@@ -2,6 +2,7 @@
 #include"BaseScene.h"
 #include"Sprite.h"
 #include"Object3d.h"
+#include"FbxObject3d.h"
 #include"DebugCamera.h"
 
 
@@ -31,10 +32,17 @@ private:
 
 private:
 	Sprite* sprite = nullptr;
+
 	Model* modelPost = nullptr;
 	Model* modelChr = nullptr;
+	
 	Object3d* objPost = nullptr;
 	Object3d* objChr = nullptr;
+	
+	FbxModel* fbxModel1 = nullptr;
+	
+	FbxObject3d* fbxObject1 = nullptr;
+	
 	DebugCamera* camera = nullptr;
 	std::vector<Sprite*> sprites;
 };

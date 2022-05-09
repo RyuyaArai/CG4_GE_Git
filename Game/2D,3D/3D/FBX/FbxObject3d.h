@@ -28,16 +28,43 @@ public:
 	{
 		XMMATRIX viewproj;
 		XMMATRIX world;
-		XMMATRIX cameraPos;
+		XMFLOAT3 cameraPos;
 	};
+
 public:
 	void Initialize();
+	void Update();
+	void Draw(ID3D12GraphicsCommandList* cmdList);
+
+
+	void SetModel(FbxModel* fbxModel) { this->fbxModel = fbxModel; }
+
 public:
 	static void SetDevice(ID3D12Device* device) { FbxObject3d::device = device; }
 	static void SetCamera(Camera* camera) { FbxObject3d::camera = camera; }
+	//グラフィックパイプラインの生成
+	static void CreateGraphicsPipeline();
+
 private:
 	static ID3D12Device* device;
 	static Camera* camera;
+	// ルートシグネチャ
+	static ComPtr<ID3D12RootSignature> rootsignature;
+	// パイプラインステートオブジェクト
+	static ComPtr<ID3D12PipelineState> pipelinestate;
+
+private:
+	// ローカルスケール
+	XMFLOAT3 scale = { 1.0,1.0,1.0 };
+	// X,Y,Z軸回りのローカル回転角
+	XMFLOAT3 rotation = { 0,0,0 };
+	// ローカル座標
+	XMFLOAT3 position = { 0,0,1 };
+	// ローカルワールド変換行列
+	XMMATRIX matWorld;
+	//モデル
+	FbxModel* fbxModel = nullptr;
+
 protected:
 	ComPtr<ID3D12Resource> constBuffTransform;
 };

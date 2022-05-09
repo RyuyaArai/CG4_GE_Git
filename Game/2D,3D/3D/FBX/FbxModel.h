@@ -68,8 +68,8 @@ private:
 	ComPtr<ID3D12Resource> vertBuff;
 	ComPtr<ID3D12Resource> indexBuff;
 	ComPtr<ID3D12Resource> texBuff;
-	D3D12_VERTEX_BUFFER_VIEW vbview = {};
-	D3D12_INDEX_BUFFER_VIEW ibview = {};
+	D3D12_VERTEX_BUFFER_VIEW vbView = {};
+	D3D12_INDEX_BUFFER_VIEW ibView = {};
 	ComPtr<ID3D12DescriptorHeap> descHeapSRV;
 
 public:

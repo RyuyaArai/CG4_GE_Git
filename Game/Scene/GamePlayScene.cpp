@@ -17,9 +17,7 @@ void GamePlayScene::Initialize() {
 	SpriteLoadTex();
 	Create2D_object();
 	Create3D_object();
-	FbxLoader::GetInstance()->LoadModelFromFile("cube");
-	FbxObject3d::SetDevice(DirectXCommon::GetInstance()->GetDev());
-	FbxObject3d::SetCamera(camera);
+	
 }
 
 void GamePlayScene::Finalize() {
@@ -33,6 +31,8 @@ void GamePlayScene::Finalize() {
 	delete objChr;
 	delete objPost;
 	delete camera;
+	delete fbxModel1;
+	delete fbxObject1;
 
 }
 
@@ -71,6 +71,7 @@ void GamePlayScene::Draw() {
 	Object3d::PreDraw(DirectXCommon::GetInstance()->GetCmdList());
 	//objPost->Draw();
 	//objChr->Draw();
+	fbxObject1->Draw(DirectXCommon::GetInstance()->GetCmdList());
 	Object3d::PostDraw();
 	SpriteCommon::GetInstance()->PreDraw();
 	for (auto& sprite : sprites)
@@ -95,6 +96,16 @@ void GamePlayScene::Create3D_object() {
 
 	objPost->Update();
 	objChr->Update();
+
+	FbxObject3d::SetDevice(DirectXCommon::GetInstance()->GetDev());
+	FbxObject3d::CreateGraphicsPipeline();
+	FbxObject3d::SetCamera(camera);
+	fbxModel1 = FbxLoader::GetInstance()->LoadModelFromFile("cube");
+	fbxObject1 = new FbxObject3d;
+	fbxObject1->Initialize();
+	fbxObject1->SetModel(fbxModel1);
+
+
 }
 
 void GamePlayScene::Create2D_object() {
@@ -133,6 +144,8 @@ void GamePlayScene::ClassUpdate() {
 	objPost->Update();
 	objChr->Update();
 	camera->Update();
+	fbxObject1->Update();
+
 	for (auto& sprite : sprites)
 	{
 		sprite->Update();
@@ -151,6 +164,7 @@ void GamePlayScene::CameraCreateSet() {
 
 	Object3d::SetCamera(camera);
 
-	camera->SetTarget({ -10,0,-100 });
+	camera->SetTarget({ 0,20,0 });
+	camera->SetDistance(100.0f);
 	camera->SetEye({ 0, 0, 0 });
 }
