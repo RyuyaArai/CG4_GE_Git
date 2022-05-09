@@ -17,11 +17,13 @@ private:
 	FbxMeshLoader* fbxMeshLoader;
 
 public:
+	static FbxLoader* GetInstance();
+	
 	static const string baseDirectory;
 
-public:
-	static FbxLoader* GetInstance();
+	static void ConvertMatrixFromFbx(DirectX::XMMATRIX* dst, const FbxAMatrix& src);
 
+public:
 	void Initialize(ID3D12Device* device);
 
 	void Finalize();

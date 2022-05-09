@@ -9,6 +9,8 @@
 #include <d3d12.h>
 #include <d3dx12.h>
 
+#include <fbxsdk.h>
+
 struct Node {
 	//名前
 	std::string name;
@@ -41,19 +43,40 @@ private:
 
 public:
 	friend class FbxLoader;
+
 public:
-	struct VertexPosNormalUv {
+	//ボーンインデックスの最大数
+	static const int MAX_BONE_INDICES = 4;
+
+public:
+	struct VertexPosNormalUvSkin {
 		XMFLOAT3 pos;
 		XMFLOAT3 normal;
 		XMFLOAT2 uv;
+		UINT boneIndex[MAX_BONE_INDICES];
+		float boneWeight[MAX_BONE_INDICES];
+	};
+	
+	struct Bone {
+		//名前
+		std::string name;
+		//初期姿勢の逆行列
+		DirectX::XMMATRIX invInitialPose;
+		//クラスター(FBX側のボーン情報)
+		FbxCluster* fbxCluster;
+		//コンストラクタ
+		Bone(const std::string& name) {
+			this->name = name;
+		}
 	};
 
 private:
 	std::string name;
 	std::vector<Node> nodes;
+	std::vector<Bone> bones;
 
 	Node* meshNode = nullptr;
-	std::vector<VertexPosNormalUv> vertices;
+	std::vector<VertexPosNormalUvSkin> vertices;
 	std::vector<unsigned short> indices;
 
 	//アンビエント係数
@@ -77,5 +100,8 @@ public:
 	void Draw(ID3D12GraphicsCommandList* cmdList);
 
 	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
+	std::vector<Bone>& GetBones() { return bones; }
+
+
 };
 

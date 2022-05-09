@@ -4,7 +4,7 @@ void FbxModel::CreateBuffers(ID3D12Device* device) {
 	HRESULT result;
 
 	UINT sizeVB =
-		static_cast<UINT>(sizeof(VertexPosNormalUv) * vertices.size());
+		static_cast<UINT>(sizeof(VertexPosNormalUvSkin) * vertices.size());
 	//頂点バッファ生成
 	result = device->CreateCommittedResource(
 		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
@@ -15,7 +15,7 @@ void FbxModel::CreateBuffers(ID3D12Device* device) {
 		IID_PPV_ARGS(&vertBuff)
 	);
 	//頂点ばバッファへ	のデータ転送
-	VertexPosNormalUv* vertMap = nullptr;
+	VertexPosNormalUvSkin* vertMap = nullptr;
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	if (SUCCEEDED(result)) {
 		std::copy(vertices.begin(), vertices.end(), vertMap);
