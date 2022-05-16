@@ -44,6 +44,8 @@ public:
 	//テクスチャ読み込み
 	void LoadTexture(FbxModel* fbxModel, const std::string& fullpath);
 
+	void ParseSkin(FbxModel* fbxModel, FbxMesh* fbxMesh);
+
 	std::string ExtractFileName(const std::string& path);
 
 
