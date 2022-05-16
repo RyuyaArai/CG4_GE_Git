@@ -79,8 +79,6 @@ private:
 	std::vector<VertexPosNormalUvSkin> vertices;
 	std::vector<unsigned short> indices;
 
-	FbxScene* fbxScene = nullptr;
-
 	//アンビエント係数
 	XMFLOAT3 ambient = { 1,1,1 };
 	//ディフューズ係数
@@ -103,9 +101,7 @@ public:
 
 	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
 	std::vector<Bone>& GetBones() { return bones; }
-	FbxScene* GetFbxScene() { return fbxScene; }
 
-	~FbxModel();
 
 };
 
