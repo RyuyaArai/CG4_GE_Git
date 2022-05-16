@@ -55,20 +55,8 @@
     <Filter Include="ヘッダー ファイル\game\Scene">
       <UniqueIdentifier>{e3002e77-bd98-4767-83da-e5edc1fa6c1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\base\GameBase">
-      <UniqueIdentifier>{351dc17a-f583-443b-9edd-de862aa1e99f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\base\Main">
       <UniqueIdentifier>{ab03dea1-3415-4056-92bc-dcd0a80c92ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\base\GameBase">
-      <UniqueIdentifier>{6069a489-a2be-4b04-b302-a12c415f82bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\base\GameBase\Camera">
-      <UniqueIdentifier>{47b498d6-9102-4681-b60b-b2c9e4d2ca4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\base\GameBase\Camera">
-      <UniqueIdentifier>{1a01dfba-aa35-480f-96d3-134ad93210ce}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\game\2D,3Dobject\FBX">
       <UniqueIdentifier>{4362a64e-7f95-4198-8e5f-eac8d30c6d76}</UniqueIdentifier>
@@ -78,6 +66,18 @@
     </Filter>
     <Filter Include="シェーダーファイル\FBX">
       <UniqueIdentifier>{606d9cc9-56b3-4b53-8891-f0b5f9f863b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\base\Main\GameBase">
+      <UniqueIdentifier>{351dc17a-f583-443b-9edd-de862aa1e99f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\base\Main\GameBase\Camera">
+      <UniqueIdentifier>{1a01dfba-aa35-480f-96d3-134ad93210ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\base\Main\GameBase">
+      <UniqueIdentifier>{6069a489-a2be-4b04-b302-a12c415f82bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\base\Main\GameBase\Camera">
+      <UniqueIdentifier>{47b498d6-9102-4681-b60b-b2c9e4d2ca4f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -106,16 +106,16 @@
       <Filter>ソース ファイル\game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Base\GameBase\WinApp.cpp">
-      <Filter>ソース ファイル\base\GameBase</Filter>
+      <Filter>ソース ファイル\base\Main\GameBase</Filter>
     </ClCompile>
     <ClCompile Include="Base\GameBase\Input.cpp">
-      <Filter>ソース ファイル\base\GameBase</Filter>
+      <Filter>ソース ファイル\base\Main\GameBase</Filter>
     </ClCompile>
     <ClCompile Include="Base\GameBase\DirectXCommon.cpp">
-      <Filter>ソース ファイル\base\GameBase</Filter>
+      <Filter>ソース ファイル\base\Main\GameBase</Filter>
     </ClCompile>
     <ClCompile Include="Base\GameBase\Audio.cpp">
-      <Filter>ソース ファイル\base\GameBase</Filter>
+      <Filter>ソース ファイル\base\Main\GameBase</Filter>
     </ClCompile>
     <ClCompile Include="Base\Main\Framework\Framework.cpp">
       <Filter>ソース ファイル\base\Main</Filter>
@@ -127,10 +127,10 @@
       <Filter>ソース ファイル\base\Main</Filter>
     </ClCompile>
     <ClCompile Include="Base\GameBase\Camera\Camera.cpp">
-      <Filter>ソース ファイル\base\GameBase\Camera</Filter>
+      <Filter>ソース ファイル\base\Main\GameBase\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Base\GameBase\Camera\DebugCamera.cpp">
-      <Filter>ソース ファイル\base\GameBase\Camera</Filter>
+      <Filter>ソース ファイル\base\Main\GameBase\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxLoader.cpp">
       <Filter>ソース ファイル\game\2D,3Dobject\FBX</Filter>
@@ -205,19 +205,19 @@
       <Filter>ヘッダー ファイル\game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\PipelineSet.h">
-      <Filter>ヘッダー ファイル\base\GameBase</Filter>
+      <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\WinApp.h">
-      <Filter>ヘッダー ファイル\base\GameBase</Filter>
+      <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\Input.h">
-      <Filter>ヘッダー ファイル\base\GameBase</Filter>
+      <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\DirectXCommon.h">
-      <Filter>ヘッダー ファイル\base\GameBase</Filter>
+      <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\Audio.h">
-      <Filter>ヘッダー ファイル\base\GameBase</Filter>
+      <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
     <ClInclude Include="Base\Main\Framework\Framework.h">
       <Filter>ヘッダー ファイル\base\Main</Filter>
@@ -229,10 +229,10 @@
       <Filter>ヘッダー ファイル\base\Main</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\Camera\DebugCamera.h">
-      <Filter>ヘッダー ファイル\base\GameBase\Camera</Filter>
+      <Filter>ヘッダー ファイル\base\Main\GameBase\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\Camera\Camera.h">
-      <Filter>ヘッダー ファイル\base\GameBase\Camera</Filter>
+      <Filter>ヘッダー ファイル\base\Main\GameBase\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxLoader.h">
       <Filter>ヘッダー ファイル\game\2D,3Dobject\FBX</Filter>
