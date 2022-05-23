@@ -24,11 +24,18 @@ private: // エイリアス
 	using XMMATRIX = DirectX::XMMATRIX;
 
 public:
-	struct constBufferDataTransform
-	{
+	//ボーンの最大数
+	static const int MAX_BONES = 32;
+
+public:
+	struct constBufferDataTransform	{
 		XMMATRIX viewproj;
 		XMMATRIX world;
 		XMFLOAT3 cameraPos;
+	};
+
+	struct ConstbufferDataSkin {
+		XMMATRIX bones[MAX_BONES];
 	};
 
 public:
@@ -53,6 +60,8 @@ private:
 	// パイプラインステートオブジェクト
 	static ComPtr<ID3D12PipelineState> pipelinestate;
 
+
+
 private:
 	// ローカルスケール
 	XMFLOAT3 scale = { 1.0,1.0,1.0 };
@@ -64,6 +73,8 @@ private:
 	XMMATRIX matWorld;
 	//モデル
 	FbxModel* fbxModel = nullptr;
+	//定数バッファ(スキン)
+	ComPtr<ID3D12Resource> constBuffSkin;
 
 protected:
 	ComPtr<ID3D12Resource> constBuffTransform;
