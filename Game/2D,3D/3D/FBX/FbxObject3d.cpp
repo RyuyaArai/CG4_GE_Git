@@ -67,8 +67,10 @@ void FbxObject3d::Update() {
 		constMap->cameraPos = cameraPos;
 		constBuffTransform->Unmap(0, nullptr);
 	}
+
 	//ボーン配列
 	std::vector<FbxModel::Bone>& bones = fbxModel->GetBones();
+
 	//定数バッファへデータ転送
 	ConstbufferDataSkin* constMapSkin = nullptr;
 	result = constBuffSkin->Map(0, nullptr, (void**)&constMapSkin);

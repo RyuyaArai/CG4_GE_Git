@@ -100,7 +100,7 @@ void GamePlayScene::Create3D_object() {
 	FbxObject3d::SetDevice(DirectXCommon::GetInstance()->GetDev());
 	FbxObject3d::CreateGraphicsPipeline();
 	FbxObject3d::SetCamera(camera);
-	fbxModel1 = FbxLoader::GetInstance()->LoadModelFromFile("cube");
+	fbxModel1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
 	fbxObject1 = new FbxObject3d;
 	fbxObject1->Initialize();
 	fbxObject1->SetModel(fbxModel1);
