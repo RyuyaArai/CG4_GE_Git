@@ -34,7 +34,7 @@ public:
 		XMFLOAT3 cameraPos;
 	};
 
-	struct ConstbufferDataSkin {
+	struct ConstBufferDataSkin {
 		XMMATRIX bones[MAX_BONES];
 	};
 

@@ -75,6 +75,9 @@ private:
 	std::vector<Node> nodes;
 	std::vector<Bone> bones;
 
+	//FBXシーン
+	FbxScene* fbxScene = nullptr;
+
 	Node* meshNode = nullptr;
 	std::vector<VertexPosNormalUvSkin> vertices;
 	std::vector<unsigned short> indices;
@@ -87,6 +90,7 @@ private:
 	TexMetadata metadata = {};
 	//スクラッチイメージ
 	ScratchImage scrachImg = {};
+
 
 	ComPtr<ID3D12Resource> vertBuff;
 	ComPtr<ID3D12Resource> indexBuff;
@@ -101,7 +105,10 @@ public:
 
 	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
 	std::vector<Bone>& GetBones() { return bones; }
+	FbxScene* GetFbxScene() { return fbxScene; }
+	~FbxModel();
 
+private:
 
 };
 

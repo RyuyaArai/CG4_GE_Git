@@ -41,6 +41,8 @@ public:
 	void ParseMeshFaces(FbxModel* fbxModel, FbxMesh* fbxMesh);
 	//マテリアル読み取り
 	void ParseMaterial(FbxModel* fbxModel, FbxNode* fbxNode);
+	//スキニング情報の読み取り
+	void ParseSkin(FbxModel* fbxModel, FbxMesh* fbxMesh);
 	//テクスチャ読み込み
 	void LoadTexture(FbxModel* fbxModel, const std::string& fullpath);
 
