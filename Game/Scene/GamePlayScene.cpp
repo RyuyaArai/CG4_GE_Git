@@ -13,6 +13,8 @@ GamePlayScene::GamePlayScene(SceneManager* sceneManager)
 
 void GamePlayScene::Initialize() {
 
+	FbxObject3d::SetDevice(DirectXCommon::GetInstance()->GetDev());
+	FbxObject3d::CreateGraphicsPipeline();
 	CameraCreateSet();
 	SpriteLoadTex();
 	Create2D_object();
@@ -47,6 +49,7 @@ void GamePlayScene::Update() {
 
 
 	if (input->PushKey(DIK_SPACE)) {
+		fbxObject1->PlayAnimation();
 
 	}
 
@@ -97,9 +100,7 @@ void GamePlayScene::Create3D_object() {
 	objPost->Update();
 	objChr->Update();
 
-	FbxObject3d::SetDevice(DirectXCommon::GetInstance()->GetDev());
-	FbxObject3d::CreateGraphicsPipeline();
-	FbxObject3d::SetCamera(camera);
+
 	fbxModel1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
 	fbxObject1 = new FbxObject3d;
 	fbxObject1->Initialize();
@@ -143,13 +144,13 @@ void GamePlayScene::ClassUpdate() {
 
 	objPost->Update();
 	objChr->Update();
-	camera->Update();
 	fbxObject1->Update();
-
 	for (auto& sprite : sprites)
 	{
 		sprite->Update();
 	}
+	camera->Update();
+
 }
 
 void GamePlayScene::SpriteLoadTex() {
@@ -163,8 +164,9 @@ void GamePlayScene::CameraCreateSet() {
 	camera = new DebugCamera(WinApp::window_width, WinApp::window_height);
 
 	Object3d::SetCamera(camera);
+	FbxObject3d::SetCamera(camera);
 
-	camera->SetTarget({ 0,20,0 });
-	camera->SetDistance(100.0f);
+	camera->SetTarget({ 0,0,0 });
+	camera->SetDistance(30.0f);
 	camera->SetEye({ 0, 0, 0 });
 }

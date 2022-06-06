@@ -39,6 +39,17 @@ void FbxObject3d::Initialize() {
 		nullptr,
 		IID_PPV_ARGS(&constBuffSkin)
 	);
+
+	//定数バッファへデータ転送
+	ConstBufferDataSkin* constMapSkin = nullptr;
+	result = constBuffSkin->Map(0, nullptr, (void**)&constMapSkin);
+	for (int i = 0; i < MAX_BONES; i++) {
+		constMapSkin->bones[i] = XMMatrixIdentity();
+	}
+	constBuffSkin->Unmap(0, nullptr);
+
+	//1フレーム分の時間を60FPSで設定
+	frameTime.SetTime(0, 0, 0, 1, 0, FbxTime::EMode::eFrames60);
 }
 
 void FbxObject3d::Update() {
@@ -66,6 +77,15 @@ void FbxObject3d::Update() {
 	//カメラ座標
 	const XMFLOAT3& cameraPos = camera->GetEye();
 
+	if (isPlay) {
+		//1フレーム進める
+		currentTime += frameTime;
+		//最後まで再生したら先頭に戻す
+		if (currentTime > endTime) {
+			currentTime = startTime;
+		}
+	}
+
 	HRESULT result;
 	
 	//定数バッファへデータ転送
@@ -89,13 +109,14 @@ void FbxObject3d::Update() {
 		XMMATRIX matCurrentPose;
 		//今の姿勢行列を取得
 		FbxAMatrix fbxCurrentPose =
-			bones[i].fbxCluster->GetLink()->EvaluateGlobalTransform(0);
+			bones[i].fbxCluster->GetLink()->EvaluateGlobalTransform(currentTime);
 		//XMMATRIXに変換
 		FbxLoader::ConvertMatrixFromFbx(&matCurrentPose, fbxCurrentPose);
 		//合成してスキニング行列に
 		constMapSkin->bones[i] = bones[i].invInitialPose * matCurrentPose;
 	}
 	constBuffSkin->Unmap(0, nullptr);
+
 }
 
 void FbxObject3d::Draw(ID3D12GraphicsCommandList* cmdList) {
@@ -119,9 +140,27 @@ void FbxObject3d::Draw(ID3D12GraphicsCommandList* cmdList) {
 		2,
 		constBuffSkin->GetGPUVirtualAddress()
 	);
-
 	//モデル描画
 	fbxModel->Draw(cmdList);
+}
+
+void FbxObject3d::PlayAnimation() {
+	FbxScene* fbxScene = fbxModel->GetFbxScene();
+	//0番のアニメーション取得
+	FbxAnimStack* animStack = fbxScene->GetSrcObject<FbxAnimStack>(0);
+	//アニメーションの名前取得
+	const char* animStackName = animStack->GetName();
+	//アニメーションの時間情報
+	FbxTakeInfo* takeInfo = fbxScene->GetTakeInfo(animStackName);
+
+	//開始時間取得
+	startTime = takeInfo->mLocalTimeSpan.GetStart();
+	//終了時間取得
+	endTime = takeInfo->mLocalTimeSpan.GetStop();
+	//開始時間に合わせる
+	currentTime = startTime;
+	//再生中状態にする
+	isPlay = true;
 }
 
 void FbxObject3d::CreateGraphicsPipeline() {
