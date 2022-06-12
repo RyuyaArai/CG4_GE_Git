@@ -1,5 +1,6 @@
 ﻿#include "FbxObject3d.h"
 #include "FbxLoader.h"
+#include "CreGraPl.h"
 
 #include <d3dcompiler.h>
 #include <fstream>
@@ -262,15 +263,8 @@ void FbxObject3d::CreateGraphicsPipeline() {
 
 	// レンダーターゲットのブレンド設定
 	D3D12_RENDER_TARGET_BLEND_DESC blenddesc{};
-	blenddesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;    // RBGA全てのチャンネルを描画
-	blenddesc.BlendEnable = true;
-	blenddesc.BlendOp = D3D12_BLEND_OP_ADD;
-	blenddesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
-	blenddesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+	blenddesc = CreGraPl::RenderTargetBlendSet();
 
-	blenddesc.BlendOpAlpha = D3D12_BLEND_OP_ADD;
-	blenddesc.SrcBlendAlpha = D3D12_BLEND_ONE;
-	blenddesc.DestBlendAlpha = D3D12_BLEND_ZERO;
 
 	// ブレンドステートの設定
 	gpipeline.BlendState.RenderTarget[0] = blenddesc;
@@ -294,7 +288,6 @@ void FbxObject3d::CreateGraphicsPipeline() {
 	descRangeSRV.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0); // t0 レジスタ
 
 	// ルートパラメータ
-	//CD3DX12_ROOT_PARAMETER rootparams[2];
 	CD3DX12_ROOT_PARAMETER rootparams[3];
 	// CBV（座標変換行列用）
 	rootparams[0].InitAsConstantBufferView(0, 0, D3D12_SHADER_VISIBILITY_ALL);
