@@ -1,6 +1,6 @@
-﻿#include "WinApp.h"
+﻿#include "WindowsAPP.h"
 
-LRESULT WinApp::windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT WindowsAPP::windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     switch (msg)
     {
@@ -11,7 +11,7 @@ LRESULT WinApp::windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
     return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
-void WinApp::Initialize()
+void WindowsAPP::Initialize()
 {
     w.cbSize = sizeof(WNDCLASSEX);
     w.lpfnWndProc = (WNDPROC)windowProc; // ウィンドウプロシージャを設定
@@ -42,17 +42,17 @@ void WinApp::Initialize()
     ShowWindow(hwnd, SW_SHOW);
 }
 
-void WinApp::Update()
+void WindowsAPP::Update()
 {
 }
 
-void WinApp::Finalize()
+void WindowsAPP::Finalize()
 {
     // ウィンドウクラスを登録解除
     UnregisterClass(w.lpszClassName, w.hInstance);
 }
 
-bool WinApp::ProcessMessage()
+bool WindowsAPP::ProcessMessage()
 {
     MSG msg{};
 

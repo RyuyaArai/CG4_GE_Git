@@ -28,7 +28,7 @@ void Object3d::StaticInitialize(ID3D12Device* device, Camera* camera)
 
 	Object3d::device = device;
 	//モデルにデバイスをセット
-	Model::SetDevice(device);
+	ObjModel::SetDevice(device);
 	Object3d::camera = camera;
 
 	// パイプライン初期化

@@ -1,16 +1,16 @@
 ﻿#pragma once
-#include"BaseScene.h"
+#include"SceneBase.h"
 #include"Sprite.h"
 #include"Object3d.h"
 #include"FbxObject3d.h"
 #include"DebugCamera.h"
 
 
-class DirectXCommon;
+class DirectXBase;
 
-class GamePlayScene : public BaseScene {
+class GamePlay : public SceneBase {
 public:
-	GamePlayScene(SceneManager* sceneManager);
+	GamePlay(SceneManager* sceneManager);
 	
 	void Initialize() override;
 
@@ -33,8 +33,8 @@ private:
 private:
 	Sprite* sprite = nullptr;
 
-	Model* modelPost = nullptr;
-	Model* modelChr = nullptr;
+	ObjModel* modelPost = nullptr;
+	ObjModel* modelChr = nullptr;
 	
 	Object3d* objPost = nullptr;
 	Object3d* objChr = nullptr;

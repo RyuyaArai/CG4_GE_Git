@@ -3,17 +3,17 @@
 #include<d3dx12.h>
 #include<dxgi1_6.h>
 #include<wrl.h>
-#include"WinApp.h"
+#include"WindowsAPP.h"
 
-class DirectXCommon
+class DirectXBase
 {
 private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 public:
-	void Initialize(WinApp* win);
+	void Initialize(WindowsAPP* win);
     void PreDraw();
     void PostDraw();
-    static DirectXCommon* GetInstance();
+    static DirectXBase* GetInstance();
 private:
 	void InitializeDevice();
     void InitializeCommand();
@@ -25,7 +25,7 @@ public:
     ID3D12Device* GetDev() { return dev.Get(); }
     ID3D12GraphicsCommandList* GetCmdList() { return cmdList.Get(); }
 private:
-    WinApp* win = nullptr;
+    WindowsAPP* win = nullptr;
 
     ComPtr<ID3D12Device> dev;
     ComPtr<IDXGIFactory6> dxgiFactory;

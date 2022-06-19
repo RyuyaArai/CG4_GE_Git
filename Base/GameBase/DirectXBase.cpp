@@ -1,10 +1,10 @@
-﻿#include "DirectXCommon.h"
+﻿#include "DirectXBase.h"
 #include <cassert>
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
 
 
-void DirectXCommon::Initialize(WinApp* win) {
+void DirectXBase::Initialize(WindowsAPP* win) {
 
     assert(win);
 
@@ -18,7 +18,7 @@ void DirectXCommon::Initialize(WinApp* win) {
 
 }
 
-void DirectXCommon::PreDraw() {
+void DirectXBase::PreDraw() {
     // バックバッファの番号を取得（2つなので0番か1番）
     UINT bbIndex = swapchain->GetCurrentBackBufferIndex();
 
@@ -46,7 +46,7 @@ void DirectXCommon::PreDraw() {
 
 }
 
-void DirectXCommon::PostDraw() {
+void DirectXBase::PostDraw() {
     UINT bbIndex = swapchain->GetCurrentBackBufferIndex();
     cmdList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(backBuffers[bbIndex].Get(),
         D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT));
@@ -73,13 +73,13 @@ void DirectXCommon::PostDraw() {
     swapchain->Present(1, 0);
 }
 
-DirectXCommon* DirectXCommon::GetInstance()
+DirectXBase* DirectXBase::GetInstance()
 {
-    static DirectXCommon instance;
+    static DirectXBase instance;
     return &instance;
 }
 
-void DirectXCommon::InitializeDevice() {
+void DirectXBase::InitializeDevice() {
 #ifdef _DEBUG
     //デバッグレイヤーをオンに
     ComPtr<ID3D12Debug> debugController;
@@ -148,7 +148,7 @@ void DirectXCommon::InitializeDevice() {
 
 }
 
-void DirectXCommon::InitializeCommand() {
+void DirectXBase::InitializeCommand() {
     HRESULT result;
 
     // コマンドアロケータを生成
@@ -168,7 +168,7 @@ void DirectXCommon::InitializeCommand() {
     dev->CreateCommandQueue(&cmdQueueDesc, IID_PPV_ARGS(&cmdQueue));
 }
 
-void DirectXCommon::InitializeSwapchain() {
+void DirectXBase::InitializeSwapchain() {
     HRESULT result;
 
     // 各種設定をしてスワップチェーンを生成
@@ -197,7 +197,7 @@ void DirectXCommon::InitializeSwapchain() {
     swapchain1.As(&swapchain);
 }
 
-void DirectXCommon::InitializeRenderTargetView() {
+void DirectXBase::InitializeRenderTargetView() {
     HRESULT result;
 
     // 各種設定をしてデスクリプタヒープを生成
@@ -227,14 +227,14 @@ void DirectXCommon::InitializeRenderTargetView() {
     }
 }
 
-void DirectXCommon::InitializeDepthBuffer() {
+void DirectXBase::InitializeDepthBuffer() {
     HRESULT result;
 
     // 深度バッファリソース設定
     CD3DX12_RESOURCE_DESC depthResDesc = CD3DX12_RESOURCE_DESC::Tex2D(
         DXGI_FORMAT_D32_FLOAT,
-        WinApp::window_width,
-        WinApp::window_height,
+        WindowsAPP::window_width,
+        WindowsAPP::window_height,
         1, 0,
         1, 0,
         D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
@@ -264,7 +264,7 @@ void DirectXCommon::InitializeDepthBuffer() {
 
 }
 
-void DirectXCommon::InitializeFence() {
+void DirectXBase::InitializeFence() {
     HRESULT result;
 
 

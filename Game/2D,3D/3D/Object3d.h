@@ -7,7 +7,7 @@
 #include <d3dx12.h>
 #include<string>
 
-#include"Model.h"
+#include"ObjModel.h"
 #include"Camera.h"
 //#include"PipelineSet.h"
 
@@ -23,7 +23,7 @@ private: // エイリアス
 	using XMFLOAT4 = DirectX::XMFLOAT4;
 	using XMMATRIX = DirectX::XMMATRIX;
 	//モデル
-	Model* model = nullptr;
+	ObjModel* model = nullptr;
 	// カメラ
 	//Camera* camera = nullptr;
 	//static Camera* camera;
@@ -74,14 +74,14 @@ public: // 静的メンバ関数
 	/// 描画後処理
 	static void PostDraw();
 
-	Object3d* Create(Model* model);
+	Object3d* Create(ObjModel* model);
 
 	/// 3Dオブジェクト生
 	static Object3d* Create();
 
 
 	//
-	void SetModel(Model* model) { this->model = model; }
+	void SetModel(ObjModel* model) { this->model = model; }
 	//static void LoadMaterial(const std::string& directoryPath, const std::string& filename);
 
 private: // 静的メンバ変数

@@ -1,19 +1,19 @@
-﻿#include "GamePlayScene.h"
+﻿#include "GamePlay.h"
 #include "SceneManager.h"
 #include "Input.h"
-#include "DirectXCommon.h"
-#include "TitleScene.h"
+#include "DirectXBase.h"
+#include "Title.h"
 #include "FbxLoader.h"
 #include "FbxObject3d.h"
 
-GamePlayScene::GamePlayScene(SceneManager* sceneManager)
-	:BaseScene(sceneManager)
+GamePlay::GamePlay(SceneManager* sceneManager)
+	:SceneBase(sceneManager)
 {
 }
 
-void GamePlayScene::Initialize() {
+void GamePlay::Initialize() {
 
-	FbxObject3d::SetDevice(DirectXCommon::GetInstance()->GetDev());
+	FbxObject3d::SetDevice(DirectXBase::GetInstance()->GetDev());
 	FbxObject3d::CreateGraphicsPipeline();
 	CameraCreateSet();
 	SpriteLoadTex();
@@ -22,7 +22,7 @@ void GamePlayScene::Initialize() {
 	
 }
 
-void GamePlayScene::Finalize() {
+void GamePlay::Finalize() {
 	for (auto& sprite : sprites)
 	{
 		delete sprite;
@@ -38,7 +38,7 @@ void GamePlayScene::Finalize() {
 
 }
 
-void GamePlayScene::Update() {
+void GamePlay::Update() {
 	Input* input = Input::GetInstance();
 
 	
@@ -70,23 +70,23 @@ void GamePlayScene::Update() {
 	}
 }
 
-void GamePlayScene::Draw() {
-	Object3d::PreDraw(DirectXCommon::GetInstance()->GetCmdList());
+void GamePlay::Draw() {
+	Object3d::PreDraw(DirectXBase::GetInstance()->GetCmdList());
 	//objPost->Draw();
 	//objChr->Draw();
-	fbxObject1->Draw(DirectXCommon::GetInstance()->GetCmdList());
+	fbxObject1->Draw(DirectXBase::GetInstance()->GetCmdList());
 	Object3d::PostDraw();
-	SpriteCommon::GetInstance()->PreDraw();
+	SpriteBase::GetInstance()->PreDraw();
 	for (auto& sprite : sprites)
 	{
 		sprite->Draw();
 	}
 }
 
-void GamePlayScene::Create3D_object() {
+void GamePlay::Create3D_object() {
 
-	modelPost = Model::LoadFromOBJ("posuto");
-	modelChr = Model::LoadFromOBJ("chr_sword");
+	modelPost = ObjModel::LoadFromOBJ("posuto");
+	modelChr = ObjModel::LoadFromOBJ("chr_sword");
 
 	objPost = Object3d::Create();
 	objChr = Object3d::Create();
@@ -109,7 +109,7 @@ void GamePlayScene::Create3D_object() {
 
 }
 
-void GamePlayScene::Create2D_object() {
+void GamePlay::Create2D_object() {
 
 	//Sprite* sprite = Sprite::Create(0, { 0,0, }, false, false);
 	//sprites.push_back(sprite);
@@ -134,13 +134,13 @@ void GamePlayScene::Create2D_object() {
 	//}
 }
 
-void GamePlayScene::ChangeScene() {
+void GamePlay::ChangeScene() {
 
-	BaseScene* scene = new TitleScene(sceneManager_);
+	SceneBase* scene = new Title(sceneManager_);
 	sceneManager_->SetNextScene(scene);
 }
 
-void GamePlayScene::ClassUpdate() {
+void GamePlay::ClassUpdate() {
 
 	objPost->Update();
 	objChr->Update();
@@ -153,15 +153,15 @@ void GamePlayScene::ClassUpdate() {
 
 }
 
-void GamePlayScene::SpriteLoadTex() {
-	SpriteCommon* spriteCommon = SpriteCommon::GetInstance();
+void GamePlay::SpriteLoadTex() {
+	SpriteBase* spriteCommon = SpriteBase::GetInstance();
 	spriteCommon->LoadTexture(0, L"Resources/texture.png");
 	spriteCommon->LoadTexture(1, L"Resources/house.png");
 
 }
 
-void GamePlayScene::CameraCreateSet() {
-	camera = new DebugCamera(WinApp::window_width, WinApp::window_height);
+void GamePlay::CameraCreateSet() {
+	camera = new DebugCamera(WindowsAPP::window_width, WindowsAPP::window_height);
 
 	Object3d::SetCamera(camera);
 	FbxObject3d::SetCamera(camera);

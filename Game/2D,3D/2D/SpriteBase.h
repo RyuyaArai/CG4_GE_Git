@@ -3,7 +3,7 @@
 #include <DirectXMath.h>
 
 
-class SpriteCommon
+class SpriteBase
 {
 private:
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
@@ -12,7 +12,7 @@ public:
 	static const int SpriteSRVCount = 512;
 
 public:
-	static SpriteCommon* GetInstance();
+	static SpriteBase* GetInstance();
 
 private:
 

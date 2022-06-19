@@ -1,8 +1,8 @@
-﻿#include "MyGame.h"
+﻿#include "GameSceneBase.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
-	Framework* myGame = new MyGame();
+	Framework* myGame = new GameSceneBase();
 	
 	myGame->Run();
 

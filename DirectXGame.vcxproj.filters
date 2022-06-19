@@ -81,7 +81,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game\2D,3D\2D\SpriteCommon.cpp">
+    <ClCompile Include="Game\2D,3D\2D\SpriteBase.cpp">
       <Filter>ソース ファイル\game\2D,3Dobject\2D</Filter>
     </ClCompile>
     <ClCompile Include="Game\2D,3D\2D\Sprite.cpp">
@@ -90,37 +90,37 @@
     <ClCompile Include="Game\2D,3D\3D\Object3d.cpp">
       <Filter>ソース ファイル\game\2D,3Dobject\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Game\2D,3D\3D\Model.cpp">
+    <ClCompile Include="Game\2D,3D\3D\ObjModel.cpp">
       <Filter>ソース ファイル\game\2D,3Dobject\3D</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル\base\Main</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\MyGame.cpp">
+    <ClCompile Include="Game\Scene\GameSceneBase.cpp">
       <Filter>ソース ファイル\game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\GamePlayScene.cpp">
+    <ClCompile Include="Game\Scene\GamePlay.cpp">
       <Filter>ソース ファイル\game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\TitleScene.cpp">
+    <ClCompile Include="Game\Scene\Title.cpp">
       <Filter>ソース ファイル\game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Base\GameBase\WinApp.cpp">
+    <ClCompile Include="Base\GameBase\WindowsAPP.cpp">
       <Filter>ソース ファイル\base\Main\GameBase</Filter>
     </ClCompile>
     <ClCompile Include="Base\GameBase\Input.cpp">
       <Filter>ソース ファイル\base\Main\GameBase</Filter>
     </ClCompile>
-    <ClCompile Include="Base\GameBase\DirectXCommon.cpp">
+    <ClCompile Include="Base\GameBase\DirectXBase.cpp">
       <Filter>ソース ファイル\base\Main\GameBase</Filter>
     </ClCompile>
-    <ClCompile Include="Base\GameBase\Audio.cpp">
+    <ClCompile Include="Base\GameBase\GameAudio.cpp">
       <Filter>ソース ファイル\base\Main\GameBase</Filter>
     </ClCompile>
     <ClCompile Include="Base\Main\Framework\Framework.cpp">
       <Filter>ソース ファイル\base\Main</Filter>
     </ClCompile>
-    <ClCompile Include="Base\Main\BaseScene.cpp">
+    <ClCompile Include="Base\Main\SceneBase.cpp">
       <Filter>ソース ファイル\base\Main</Filter>
     </ClCompile>
     <ClCompile Include="Base\Main\SceneManager\SceneManager.cpp">
@@ -186,10 +186,10 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\2D,3D\2D\SpriteCommon.h">
+    <ClInclude Include="Game\2D,3D\2D\SpriteBase.h">
       <Filter>ヘッダー ファイル\game\2D,3Dobject\2D</Filter>
     </ClInclude>
-    <ClInclude Include="Game\2D,3D\3D\Model.h">
+    <ClInclude Include="Game\2D,3D\3D\ObjModel.h">
       <Filter>ヘッダー ファイル\game\2D,3Dobject\3D</Filter>
     </ClInclude>
     <ClInclude Include="Game\2D,3D\3D\Object3d.h">
@@ -198,34 +198,34 @@
     <ClInclude Include="Game\2D,3D\2D\Sprite.h">
       <Filter>ヘッダー ファイル\game\2D,3Dobject\2D</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\MyGame.h">
+    <ClInclude Include="Game\Scene\GameSceneBase.h">
       <Filter>ヘッダー ファイル\game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\GamePlayScene.h">
+    <ClInclude Include="Game\Scene\GamePlay.h">
       <Filter>ヘッダー ファイル\game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\TitleScene.h">
+    <ClInclude Include="Game\Scene\Title.h">
       <Filter>ヘッダー ファイル\game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\PipelineSet.h">
       <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
-    <ClInclude Include="Base\GameBase\WinApp.h">
+    <ClInclude Include="Base\GameBase\WindowsAPP.h">
       <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
     <ClInclude Include="Base\GameBase\Input.h">
       <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
-    <ClInclude Include="Base\GameBase\DirectXCommon.h">
+    <ClInclude Include="Base\GameBase\DirectXBase.h">
       <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
-    <ClInclude Include="Base\GameBase\Audio.h">
+    <ClInclude Include="Base\GameBase\GameAudio.h">
       <Filter>ヘッダー ファイル\base\Main\GameBase</Filter>
     </ClInclude>
     <ClInclude Include="Base\Main\Framework\Framework.h">
       <Filter>ヘッダー ファイル\base\Main</Filter>
     </ClInclude>
-    <ClInclude Include="Base\Main\BaseScene.h">
+    <ClInclude Include="Base\Main\SceneBase.h">
       <Filter>ヘッダー ファイル\base\Main</Filter>
     </ClInclude>
     <ClInclude Include="Base\Main\SceneManager\SceneManager.h">

@@ -1,4 +1,4 @@
-﻿#include"SpriteCommon.h"
+﻿#include"SpriteBase.h"
 #include<string>
 #include<cassert>
 #include<d3dx12.h>
@@ -9,13 +9,13 @@
 using namespace DirectX;
 using namespace Microsoft::WRL;
 
-SpriteCommon* SpriteCommon::GetInstance()
+SpriteBase* SpriteBase::GetInstance()
 {
-    static SpriteCommon instance;
+    static SpriteBase instance;
     return &instance;
 }
 
-void SpriteCommon::initialize(ID3D12Device* device, ID3D12GraphicsCommandList* cmdList, int window_width, int window_height)
+void SpriteBase::initialize(ID3D12Device* device, ID3D12GraphicsCommandList* cmdList, int window_width, int window_height)
 {
     HRESULT result = S_FALSE;
 
@@ -40,7 +40,7 @@ void SpriteCommon::initialize(ID3D12Device* device, ID3D12GraphicsCommandList* c
 
 }
 
-void SpriteCommon::PreDraw()
+void SpriteBase::PreDraw()
 {
     // パイプラインステートの設定
     CmdList->SetPipelineState(pipelineSet.pipelinestate.Get());
@@ -54,7 +54,7 @@ void SpriteCommon::PreDraw()
     CmdList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
 }
 
-void SpriteCommon::LoadTexture(UINT texnumber, const wchar_t* filename)
+void SpriteBase::LoadTexture(UINT texnumber, const wchar_t* filename)
 {
     assert(texnumber <= SpriteSRVCount - 1);
 
@@ -112,7 +112,7 @@ void SpriteCommon::LoadTexture(UINT texnumber, const wchar_t* filename)
     );
 }
 
-void SpriteCommon::SetGraphicsRootDescriptorTable(UINT rootParameterIndex, UINT texnumber)
+void SpriteBase::SetGraphicsRootDescriptorTable(UINT rootParameterIndex, UINT texnumber)
 {
     CmdList->SetGraphicsRootDescriptorTable(rootParameterIndex,
         CD3DX12_GPU_DESCRIPTOR_HANDLE(
@@ -122,7 +122,7 @@ void SpriteCommon::SetGraphicsRootDescriptorTable(UINT rootParameterIndex, UINT 
 
 }
 
-ID3D12Resource* SpriteCommon::GetTexBuff(int texnumber)
+ID3D12Resource* SpriteBase::GetTexBuff(int texnumber)
 {
     assert(0 <= texnumber && texnumber < SpriteSRVCount);
 
@@ -130,7 +130,7 @@ ID3D12Resource* SpriteCommon::GetTexBuff(int texnumber)
     return texBuff[texnumber].Get();
 }
 
-void SpriteCommon::CreateGraphicsPipeline()
+void SpriteBase::CreateGraphicsPipeline()
 {
     HRESULT result;
 

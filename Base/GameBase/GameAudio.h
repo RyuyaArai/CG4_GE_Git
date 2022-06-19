@@ -30,7 +30,7 @@ public:
 	STDMETHOD_(void, OnVoiceError) (THIS_ void* pBufferContext, HRESULT Error) {};
 };
 
-class Audio
+class GameAudio
 {
 private: // エイリアス
 	// Microsoft::WRL::を省略

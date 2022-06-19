@@ -3,9 +3,9 @@
 class SceneManager;
 
 //ƒV[ƒ“Šî’ê
-class BaseScene {
+class SceneBase {
 public:
-	BaseScene(SceneManager* sceneManager);
+	SceneBase(SceneManager* sceneManager);
 
 	virtual void Initialize() = 0;
 

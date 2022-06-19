@@ -1,16 +1,16 @@
-﻿#include "TitleScene.h"
+﻿#include "Title.h"
 #include "SceneManager.h"
 #include "Input.h"
-#include "DirectXCommon.h"
-#include "GamePlayScene.h"
+#include "DirectXBase.h"
+#include "GamePlay.h"
 
-TitleScene::TitleScene(SceneManager* sceneManager)
-	:BaseScene(sceneManager)
+Title::Title(SceneManager* sceneManager)
+	:SceneBase(sceneManager)
 {
 }
 
-void TitleScene::Initialize() {
-	SpriteCommon* spriteCommon = SpriteCommon::GetInstance();
+void Title::Initialize() {
+	SpriteBase* spriteCommon = SpriteBase::GetInstance();
 	spriteCommon->LoadTexture(0, L"Resources/house.png");
 	for (int i = 0; i < 20; i++)
 	{
@@ -33,11 +33,11 @@ void TitleScene::Initialize() {
 
 }
 
-void TitleScene::Finalize() {
+void Title::Finalize() {
 	delete sprite;
 }
 
-void TitleScene::Update() {
+void Title::Update() {
 	Input* input = Input::GetInstance();
 	if (input->PushKey(DIK_SPACE))     // スペースキーが押されていたら
 	{
@@ -45,14 +45,14 @@ void TitleScene::Update() {
 		//clearColor[1] = 1.0f;
 	}
 	if (input->TriggerKey(DIK_RETURN)) {
-		BaseScene* scene = new GamePlayScene(sceneManager_);
+		SceneBase* scene = new GamePlay(sceneManager_);
 		sceneManager_->SetNextScene(scene);
 	}
 	sprite->Update();
 }
 
-void TitleScene::Draw() {
-	SpriteCommon::GetInstance()->PreDraw();
+void Title::Draw() {
+	SpriteBase::GetInstance()->PreDraw();
 	for (auto& sprite : sprites)
 	{
 		sprite->Draw();

@@ -5,7 +5,7 @@
 #define DIRECTINPUT_VERSION     0x0800   // DirectInputのバージョン指定
 #include <dinput.h>
 
-#include "WinApp.h"
+#include "WindowsAPP.h"
 
 class Input
 {
@@ -17,7 +17,7 @@ public:
 
 public:
 	//初期化
-	void Initialize(WinApp* winApp);
+	void Initialize(WindowsAPP* winApp);
 	//更新
 	void Update();
 	//キーの押下をチェック
@@ -26,7 +26,7 @@ public:
 	bool TriggerKey(BYTE keyNumber);
 private:
 	//windowsAPI
-	WinApp* winApp = nullptr;
+	WindowsAPP* winApp = nullptr;
 
 	ComPtr<IDirectInputDevice8> devkeyboard = nullptr;
 	ComPtr<IDirectInput8> dinput = nullptr;

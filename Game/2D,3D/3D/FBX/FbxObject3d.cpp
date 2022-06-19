@@ -262,9 +262,8 @@ void FbxObject3d::CreateGraphicsPipeline() {
 	gpipeline.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
 
 	// レンダーターゲットのブレンド設定
-	D3D12_RENDER_TARGET_BLEND_DESC blenddesc{};
-	blenddesc = CreGraPl::RenderTargetBlendSet();
-
+	D3D12_RENDER_TARGET_BLEND_DESC blenddesc
+	= CreGraPl::RenderTargetBlendSet();
 
 	// ブレンドステートの設定
 	gpipeline.BlendState.RenderTarget[0] = blenddesc;

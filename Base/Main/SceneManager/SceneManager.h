@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "BaseScene.h"
+#include "SceneBase.h"
 
 //Scene管理
 
@@ -13,11 +13,11 @@ public:
 	void Draw();
 public:
 	//次シーン予約
-	void SetNextScene(BaseScene* nextScene) { nextScene_ = nextScene; }
+	void SetNextScene(SceneBase* nextScene) { nextScene_ = nextScene; }
 private:
 	//今
-	BaseScene* scene_ = nullptr;
+	SceneBase* scene_ = nullptr;
 	//次
-	BaseScene* nextScene_ = nullptr;
+	SceneBase* nextScene_ = nullptr;
 };
 

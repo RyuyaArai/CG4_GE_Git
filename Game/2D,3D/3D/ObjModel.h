@@ -5,7 +5,7 @@
 #include <DirectXMath.h>
 #include <d3dx12.h>
 
-class Model
+class ObjModel
 {
 private:
 	//Microsoft::WRL::ComPtr<ID3D12Resource>constBuffB1;
@@ -52,8 +52,8 @@ public:
 		float alpha;
 	};
 public:
-	static Model* LoadFromOBJ(const std::string& modelname);
-	static void SetDevice(ID3D12Device* dev) { Model::device = dev; }
+	static ObjModel* LoadFromOBJ(const std::string& modelname);
+	static void SetDevice(ID3D12Device* dev) { ObjModel::device = dev; }
 
 
 private:

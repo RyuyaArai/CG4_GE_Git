@@ -5,7 +5,7 @@
 #include "Framework.h"
 
 
-class MyGame : public Framework
+class GameSceneBase : public Framework
 {
 public:
 	void Initialize() override;

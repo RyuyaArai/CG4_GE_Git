@@ -152,26 +152,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Base\GameBase\Audio.cpp" />
+    <ClCompile Include="Base\GameBase\GameAudio.cpp" />
     <ClCompile Include="Base\GameBase\Camera\Camera.cpp" />
     <ClCompile Include="Base\GameBase\Camera\DebugCamera.cpp" />
-    <ClCompile Include="Base\GameBase\DirectXCommon.cpp" />
+    <ClCompile Include="Base\GameBase\DirectXBase.cpp" />
     <ClCompile Include="Base\GameBase\Input.cpp" />
-    <ClCompile Include="Base\GameBase\WinApp.cpp" />
-    <ClCompile Include="Base\Main\BaseScene.cpp" />
+    <ClCompile Include="Base\GameBase\WindowsAPP.cpp" />
+    <ClCompile Include="Base\Main\SceneBase.cpp" />
     <ClCompile Include="Base\Main\Framework\Framework.cpp" />
     <ClCompile Include="Base\Main\SceneManager\SceneManager.cpp" />
     <ClCompile Include="CreGraPl.cpp" />
     <ClCompile Include="Game\2D,3D\2D\Sprite.cpp" />
-    <ClCompile Include="Game\2D,3D\2D\SpriteCommon.cpp" />
+    <ClCompile Include="Game\2D,3D\2D\SpriteBase.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxLoader.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxModel.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxObject3d.cpp" />
-    <ClCompile Include="Game\2D,3D\3D\Model.cpp" />
+    <ClCompile Include="Game\2D,3D\3D\ObjModel.cpp" />
     <ClCompile Include="Game\2D,3D\3D\Object3d.cpp" />
-    <ClCompile Include="Game\Scene\GamePlayScene.cpp" />
-    <ClCompile Include="Game\Scene\MyGame.cpp" />
-    <ClCompile Include="Game\Scene\TitleScene.cpp" />
+    <ClCompile Include="Game\Scene\GamePlay.cpp" />
+    <ClCompile Include="Game\Scene\GameSceneBase.cpp" />
+    <ClCompile Include="Game\Scene\Title.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -260,27 +260,27 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Base\GameBase\Audio.h" />
+    <ClInclude Include="Base\GameBase\GameAudio.h" />
     <ClInclude Include="Base\GameBase\Camera\Camera.h" />
     <ClInclude Include="Base\GameBase\Camera\DebugCamera.h" />
-    <ClInclude Include="Base\GameBase\DirectXCommon.h" />
+    <ClInclude Include="Base\GameBase\DirectXBase.h" />
     <ClInclude Include="Base\GameBase\Input.h" />
     <ClInclude Include="Base\GameBase\PipelineSet.h" />
-    <ClInclude Include="Base\GameBase\WinApp.h" />
-    <ClInclude Include="Base\Main\BaseScene.h" />
+    <ClInclude Include="Base\GameBase\WindowsAPP.h" />
+    <ClInclude Include="Base\Main\SceneBase.h" />
     <ClInclude Include="Base\Main\Framework\Framework.h" />
     <ClInclude Include="Base\Main\SceneManager\SceneManager.h" />
     <ClInclude Include="CreGraPl.h" />
     <ClInclude Include="Game\2D,3D\2D\Sprite.h" />
-    <ClInclude Include="Game\2D,3D\2D\SpriteCommon.h" />
+    <ClInclude Include="Game\2D,3D\2D\SpriteBase.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxLoader.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxModel.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxObject3d.h" />
-    <ClInclude Include="Game\2D,3D\3D\Model.h" />
+    <ClInclude Include="Game\2D,3D\3D\ObjModel.h" />
     <ClInclude Include="Game\2D,3D\3D\Object3d.h" />
-    <ClInclude Include="Game\Scene\GamePlayScene.h" />
-    <ClInclude Include="Game\Scene\MyGame.h" />
-    <ClInclude Include="Game\Scene\TitleScene.h" />
+    <ClInclude Include="Game\Scene\GamePlay.h" />
+    <ClInclude Include="Game\Scene\GameSceneBase.h" />
+    <ClInclude Include="Game\Scene\Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

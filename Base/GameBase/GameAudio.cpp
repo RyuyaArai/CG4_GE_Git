@@ -1,10 +1,10 @@
-﻿#include "Audio.h"
+﻿#include "GameAudio.h"
 #include <fstream>
 #include <cassert>
 
 #pragma comment(lib,"xaudio2.lib")
 
-bool Audio::Initialize()
+bool GameAudio::Initialize()
 {
 	HRESULT result;
 
@@ -25,7 +25,7 @@ bool Audio::Initialize()
 	return true;
 }
 
-void Audio::PlayWave(const char * filename)
+void GameAudio::PlayWave(const char * filename)
 {
 	HRESULT result;
 	// ファイルストリーム
@@ -96,7 +96,7 @@ void Audio::PlayWave(const char * filename)
 	}
 }
 
-void Audio::StopWave()
+void GameAudio::StopWave()
 {
 	HRESULT result;
 	if (pSourceVoice == nullptr) { return; }

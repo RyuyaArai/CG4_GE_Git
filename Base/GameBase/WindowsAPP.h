@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <Windows.h>
 
-class WinApp
+class WindowsAPP
 {
 public://静的メンバ関数
 	static LRESULT windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);

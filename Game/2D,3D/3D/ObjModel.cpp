@@ -1,4 +1,4 @@
-﻿#include "Model.h"
+﻿#include "ObjModel.h"
 #include <d3dcompiler.h>
 #include <DirectXTex.h>
 #include <fstream>
@@ -9,10 +9,10 @@
 using namespace std;
 using namespace DirectX;
 using namespace Microsoft::WRL;
-ID3D12Device* Model::device = nullptr;
-Model* Model::LoadFromOBJ(const std::string& modelname)
+ID3D12Device* ObjModel::device = nullptr;
+ObjModel* ObjModel::LoadFromOBJ(const std::string& modelname)
 {
-	Model* model = new Model();
+	ObjModel* model = new ObjModel();
 
 	model->InitializeDescriptorHeap();
 
@@ -22,7 +22,7 @@ Model* Model::LoadFromOBJ(const std::string& modelname)
 	return model;
 }
 
-void Model::LoadFromObjInternal(const std::string& modelname)
+void ObjModel::LoadFromObjInternal(const std::string& modelname)
 {
 	//データの読み取り
 
@@ -116,7 +116,7 @@ void Model::LoadFromObjInternal(const std::string& modelname)
 
 }
 #pragma region テクスチャ読み込み
-bool Model::LoadTexture(const std::string& directoryPath, const std::string& filename)
+bool ObjModel::LoadTexture(const std::string& directoryPath, const std::string& filename)
 {
 	HRESULT result = S_FALSE;
 
@@ -192,7 +192,7 @@ bool Model::LoadTexture(const std::string& directoryPath, const std::string& fil
 #pragma endregion
 
 #pragma region マテリアル読込
-void  Model::LoadMaterial(const std::string& directoryPath, const std::string& filename)
+void  ObjModel::LoadMaterial(const std::string& directoryPath, const std::string& filename)
 {
 	std::ifstream file;
 	file.open(directoryPath + filename);
@@ -235,7 +235,7 @@ void  Model::LoadMaterial(const std::string& directoryPath, const std::string& f
 #pragma endregion
 
 #pragma region でスクリプタヒープの初期化
-bool Model::InitializeDescriptorHeap()
+bool ObjModel::InitializeDescriptorHeap()
 {
 	HRESULT result = S_FALSE;
 
@@ -258,7 +258,7 @@ bool Model::InitializeDescriptorHeap()
 #pragma endregion
 
 #pragma region バッファ生成
-void Model::CreateBuffer()
+void ObjModel::CreateBuffer()
 {
 	//HRESULT result;
 	HRESULT result = S_FALSE;
@@ -342,7 +342,7 @@ void Model::CreateBuffer()
 #pragma endregion
 
 #pragma region 描画
-void Model::Draw(ID3D12GraphicsCommandList* cmdList, UINT rootparamindexMaterial)
+void ObjModel::Draw(ID3D12GraphicsCommandList* cmdList, UINT rootparamindexMaterial)
 {
 
 	// 頂点バッファの設定
