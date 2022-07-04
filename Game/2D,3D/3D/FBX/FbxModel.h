@@ -101,6 +101,7 @@ private:
 
 public:
 	void CreateBuffers(ID3D12Device* device);
+
 	void Draw(ID3D12GraphicsCommandList* cmdList);
 
 	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
@@ -109,6 +110,9 @@ public:
 	~FbxModel();
 
 private:
-
+	void CreateVB(ID3D12Device* device);
+	void CreateIB(ID3D12Device* device);
+	void CreateSRVDescHeap(ID3D12Device* device);
+	void CreateSRV(ID3D12Device* device);
 };
 

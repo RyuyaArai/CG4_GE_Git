@@ -27,6 +27,15 @@ private:
 	ID3D12Device* Device = nullptr;
 
 	ID3D12GraphicsCommandList* CmdList = nullptr;
+
+	SpriteBase() = default;
+
+	~SpriteBase() = default;
+
+	SpriteBase(const SpriteBase& obj) = delete;
+
+	void operator=(const SpriteBase& obj) = delete;
+
 public:
 
 	void initialize(ID3D12Device* device,ID3D12GraphicsCommandList* cmdList, int window_width, int window_height);

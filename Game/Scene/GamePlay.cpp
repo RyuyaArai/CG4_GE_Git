@@ -56,6 +56,9 @@ void GamePlay::Update() {
 	// 座標操作
 	if (input->PushKey(DIK_UP) || input->PushKey(DIK_DOWN) || input->PushKey(DIK_RIGHT) || input->PushKey(DIK_LEFT)) {
 
+
+		if (input->PushKey(DIK_UP)) {
+		}
 	}
 
 
