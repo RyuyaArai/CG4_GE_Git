@@ -7,7 +7,7 @@
 #include <d3dx12.h>
 #include<string>
 
-#include"Model.h"
+#include"ObjModel.h"
 #include"Camera.h"
 //#include"PipelineSet.h"
 
@@ -23,7 +23,7 @@ private: // エイリアス
 	using XMFLOAT4 = DirectX::XMFLOAT4;
 	using XMMATRIX = DirectX::XMMATRIX;
 	//モデル
-	Model* model = nullptr;
+	ObjModel* model = nullptr;
 	// カメラ
 	//Camera* camera = nullptr;
 	//static Camera* camera;
@@ -74,28 +74,14 @@ public: // 静的メンバ関数
 	/// 描画後処理
 	static void PostDraw();
 
-	Object3d* Create(Model* model);
+	Object3d* Create(ObjModel* model);
 
 	/// 3Dオブジェクト生
 	static Object3d* Create();
 
-	/// 視点座標の取得
-	/*static const XMFLOAT3& GetEye() { return eye; }
-
-	/// 視点座標の設定
-	static void SetEye(XMFLOAT3 eye);
-
-	/// 注視点座標の取得
-	static const XMFLOAT3& GetTarget() { return target; }
-
-	/// 注視点座標の設定
-	static void SetTarget(XMFLOAT3 target);
-
-	/// ベクトルによる移動
-	static void CameraMoveVector(XMFLOAT3 move);*/
 
 	//
-	void SetModel(Model* model) { this->model = model; }
+	void SetModel(ObjModel* model) { this->model = model; }
 	//static void LoadMaterial(const std::string& directoryPath, const std::string& filename);
 
 private: // 静的メンバ変数
@@ -103,26 +89,11 @@ private: // 静的メンバ変数
 	static ID3D12Device* device;
 	// コマンドリスト
 	static ID3D12GraphicsCommandList* cmdList;
-	//// ルートシグネチャ
-	//static ComPtr<ID3D12RootSignature> rootsignature;
-	//// パイプラインステートオブジェクト
-	//static ComPtr<ID3D12PipelineState> pipelinestate;
+
 	// カメラ
 	static Camera* camera;
 	// パイプライン
 	static PipelineSet pipelineSet;
-
-
-	// ビュー行列
-	//static XMMATRIX matView;
-	//// 射影行列
-	//static XMMATRIX matProjection;
-	//// 視点座標
-	//static XMFLOAT3 eye;
-	//// 注視点座標
-	//static XMFLOAT3 target;
-	//// 上方向ベクトル
-	//static XMFLOAT3 up;
 
 
 private:// 静的メンバ関数

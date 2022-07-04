@@ -1,4 +1,5 @@
 ﻿#include "Framework.h"
+#include "FbxLoader.h"
 
 void Framework::Run() {
 	Initialize();
@@ -19,7 +20,7 @@ void Framework::Initialize() {
 
 #pragma region WindowsAPI初期化
 
-	winApp_ = new WinApp();
+	winApp_ = new WindowsAPP();
 	winApp_->Initialize();
 
 	MSG msg{};  // メッセージ
@@ -29,18 +30,21 @@ void Framework::Initialize() {
 #pragma region DirectX初期化処理
 
 
-	dxCommon_ = DirectXCommon::GetInstance();
+	dxCommon_ = DirectXBase::GetInstance();
 	dxCommon_->Initialize(winApp_);
 
 	input_ = Input::GetInstance();
 	input_->Initialize(winApp_);
 	
-	spriteCommon_ = SpriteCommon::GetInstance();
+	spriteCommon_ = SpriteBase::GetInstance();
 	spriteCommon_->initialize(dxCommon_->GetDev(), dxCommon_->GetCmdList(), winApp_->window_width, winApp_->window_height);
 
 	Object3d::StaticInitialize(dxCommon_->GetDev());
 	
 	sceneManager_ = new SceneManager();
+
+	FbxLoader::GetInstance()->Initialize(dxCommon_->GetDev());
+
 #pragma endregion DirectX初期化処理
 
 }
@@ -50,6 +54,7 @@ void Framework::Finalize() {
 // xAudio2.Reset();
  // 音声データ解放
 // SoundUnload(&soundData1);
+	FbxLoader::GetInstance()->Finalize();
 
 #pragma region WindowsAPI後始末
 	winApp_->Finalize();

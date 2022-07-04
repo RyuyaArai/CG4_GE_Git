@@ -1,14 +1,14 @@
 ﻿#pragma once
 #include "Input.h"
-#include "WinApp.h"
-#include "DirectXCommon.h"
+#include "WindowsAPP.h"
+#include "DirectXBase.h"
 #include "Object3d.h"
-#include "Audio.h"
-#include "SpriteCommon.h"
+#include "GameAudio.h"
+#include "SpriteBase.h"
 #include "DebugCamera.h"
 #include "SceneManager.h"
 
-#include "Model.h"
+#include "ObjModel.h"
 #include"Sprite.h"
 
 class Framework
@@ -30,11 +30,11 @@ public:
 
 protected:
 	bool gameloopEndReqest_ = false;
-	WinApp* winApp_ = nullptr;
-	DirectXCommon* dxCommon_ = nullptr;
+	WindowsAPP* winApp_ = nullptr;
+	DirectXBase* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
-	SpriteCommon* spriteCommon_ = nullptr;
-	Audio* audio_ = nullptr;
+	SpriteBase* spriteCommon_ = nullptr;
+	GameAudio* audio_ = nullptr;
 	SceneManager* sceneManager_ = nullptr;
 };
 

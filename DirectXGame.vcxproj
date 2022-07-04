@@ -78,9 +78,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)lib\fbx_sdk\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)lib\fbx_sdk\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\fbx_sdk\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,13 +122,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Base\GameBase\Camera;$(ProjectDir)Base\GameBase;$(ProjectDir)Base\Main\SceneManager;$(ProjectDir)Base\Main\Framework;$(ProjectDir)Base\Main;$(ProjectDir)Base;$(ProjectDir)Game\2D,3D\3D;$(ProjectDir)Game\2D,3D\2D;$(ProjectDir)Game\Scene;$(ProjectDir)Game;$(ProjectDir);$(SolutionDir)DirectXTex;$(SolutionDir)imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Base\GameBase\Camera;$(ProjectDir)Base\GameBase;$(ProjectDir)Base\Main\SceneManager;$(ProjectDir)Base\Main\Framework;$(ProjectDir)Base\Main;$(ProjectDir)Base;$(ProjectDir)Game\2D,3D\3D\FBX;$(ProjectDir)Game\2D,3D\3D;$(ProjectDir)Game\2D,3D\2D;$(ProjectDir)Game\Scene;$(ProjectDir)Game;$(ProjectDir);$(SolutionDir)DirectXTex;$(SolutionDir)imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,32 +140,38 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Base\GameBase\Camera;$(ProjectDir)Base\GameBase;$(ProjectDir)Base\Main\SceneManager;$(ProjectDir)Base\Main\Framework;$(ProjectDir)Base\Main;$(ProjectDir)Base;$(ProjectDir)Game\2D,3D\3D;$(ProjectDir)Game\2D,3D\2D;$(ProjectDir)Game\Scene;$(ProjectDir)Game;$(ProjectDir);$(SolutionDir)DirectXTex;$(SolutionDir)imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Base\GameBase\Camera;$(ProjectDir)Base\GameBase;$(ProjectDir)Base\Main\SceneManager;$(ProjectDir)Base\Main\Framework;$(ProjectDir)Base\Main;$(ProjectDir)Base;$(ProjectDir)Game\2D,3D\3D\FBX;$(ProjectDir)Game\2D,3D\3D;$(ProjectDir)Game\2D,3D\2D;$(ProjectDir)Game\Scene;$(ProjectDir)Game;$(ProjectDir);$(SolutionDir)DirectXTex;$(SolutionDir)imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libfbxsdk-mt.lib;libxml2-mt.lib;zlib-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Base\GameBase\Audio.cpp" />
+    <ClCompile Include="Base\GameBase\GameAudio.cpp" />
     <ClCompile Include="Base\GameBase\Camera\Camera.cpp" />
     <ClCompile Include="Base\GameBase\Camera\DebugCamera.cpp" />
-    <ClCompile Include="Base\GameBase\DirectXCommon.cpp" />
+    <ClCompile Include="Base\GameBase\DirectXBase.cpp" />
     <ClCompile Include="Base\GameBase\Input.cpp" />
-    <ClCompile Include="Base\GameBase\WinApp.cpp" />
-    <ClCompile Include="Base\Main\BaseScene.cpp" />
+    <ClCompile Include="Base\GameBase\WindowsAPP.cpp" />
+    <ClCompile Include="Base\Main\SceneBase.cpp" />
     <ClCompile Include="Base\Main\Framework\Framework.cpp" />
     <ClCompile Include="Base\Main\SceneManager\SceneManager.cpp" />
+    <ClCompile Include="CreGraPl.cpp" />
     <ClCompile Include="Game\2D,3D\2D\Sprite.cpp" />
-    <ClCompile Include="Game\2D,3D\2D\SpriteCommon.cpp" />
-    <ClCompile Include="Game\2D,3D\3D\Model.cpp" />
+    <ClCompile Include="Game\2D,3D\2D\SpriteBase.cpp" />
+    <ClCompile Include="Game\2D,3D\3D\FBX\FbxLoader.cpp" />
+    <ClCompile Include="Game\2D,3D\3D\FBX\FbxModel.cpp" />
+    <ClCompile Include="Game\2D,3D\3D\FBX\FbxObject3d.cpp" />
+    <ClCompile Include="Game\2D,3D\3D\ObjModel.cpp" />
     <ClCompile Include="Game\2D,3D\3D\Object3d.cpp" />
-    <ClCompile Include="Game\Scene\GamePlayScene.cpp" />
-    <ClCompile Include="Game\Scene\MyGame.cpp" />
-    <ClCompile Include="Game\Scene\TitleScene.cpp" />
+    <ClCompile Include="Game\Scene\GamePlay.cpp" />
+    <ClCompile Include="Game\Scene\GameSceneBase.cpp" />
+    <ClCompile Include="Game\Scene\Title.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Basic.hlsli" />
+    <None Include="Resources\shaders\FBX.hlsli" />
     <None Include="Resources\shaders\OBJShaderHeader.hlsli" />
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
@@ -193,6 +205,18 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\FBXPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\FBXVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\shaders\OBJPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -236,23 +260,27 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Base\GameBase\Audio.h" />
+    <ClInclude Include="Base\GameBase\GameAudio.h" />
     <ClInclude Include="Base\GameBase\Camera\Camera.h" />
     <ClInclude Include="Base\GameBase\Camera\DebugCamera.h" />
-    <ClInclude Include="Base\GameBase\DirectXCommon.h" />
+    <ClInclude Include="Base\GameBase\DirectXBase.h" />
     <ClInclude Include="Base\GameBase\Input.h" />
     <ClInclude Include="Base\GameBase\PipelineSet.h" />
-    <ClInclude Include="Base\GameBase\WinApp.h" />
-    <ClInclude Include="Base\Main\BaseScene.h" />
+    <ClInclude Include="Base\GameBase\WindowsAPP.h" />
+    <ClInclude Include="Base\Main\SceneBase.h" />
     <ClInclude Include="Base\Main\Framework\Framework.h" />
     <ClInclude Include="Base\Main\SceneManager\SceneManager.h" />
+    <ClInclude Include="CreGraPl.h" />
     <ClInclude Include="Game\2D,3D\2D\Sprite.h" />
-    <ClInclude Include="Game\2D,3D\2D\SpriteCommon.h" />
-    <ClInclude Include="Game\2D,3D\3D\Model.h" />
+    <ClInclude Include="Game\2D,3D\2D\SpriteBase.h" />
+    <ClInclude Include="Game\2D,3D\3D\FBX\FbxLoader.h" />
+    <ClInclude Include="Game\2D,3D\3D\FBX\FbxModel.h" />
+    <ClInclude Include="Game\2D,3D\3D\FBX\FbxObject3d.h" />
+    <ClInclude Include="Game\2D,3D\3D\ObjModel.h" />
     <ClInclude Include="Game\2D,3D\3D\Object3d.h" />
-    <ClInclude Include="Game\Scene\GamePlayScene.h" />
-    <ClInclude Include="Game\Scene\MyGame.h" />
-    <ClInclude Include="Game\Scene\TitleScene.h" />
+    <ClInclude Include="Game\Scene\GamePlay.h" />
+    <ClInclude Include="Game\Scene\GameSceneBase.h" />
+    <ClInclude Include="Game\Scene\Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,7 +2,7 @@
 #include <wrl.h>
 #include <d3d12.h>
 #include <DirectXMath.h>
-#include"SpriteCommon.h"
+#include"SpriteBase.h"
 
 class Sprite
 {

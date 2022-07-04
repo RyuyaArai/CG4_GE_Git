@@ -25,7 +25,7 @@ void Sprite::initialize(UINT texNumber, XMFLOAT2 anchorpoint, bool isFlipX , boo
     isFlipX_ = isFlipX;
     isFlipY_ = isFlipY;
 
-    SpriteCommon* spriteCommon = SpriteCommon::GetInstance();
+    SpriteBase* spriteCommon = SpriteBase::GetInstance();
 
     // 頂点データ
     VertexPosUv vertices[4];
@@ -74,7 +74,7 @@ void Sprite::initialize(UINT texNumber, XMFLOAT2 anchorpoint, bool isFlipX , boo
 
 void Sprite::TransferVertexBuffer()
 {
-    SpriteCommon* spriteCommon = SpriteCommon::GetInstance();
+    SpriteBase* spriteCommon = SpriteBase::GetInstance();
     HRESULT result = S_FALSE;
 
     // 頂点データ
@@ -136,7 +136,7 @@ void Sprite::TransferVertexBuffer()
 
 void Sprite::Update()
 {
-    SpriteCommon* spriteCommon = SpriteCommon::GetInstance();
+    SpriteBase* spriteCommon = SpriteBase::GetInstance();
     // ワールド行列の更新
     matWorld_ = XMMatrixIdentity();
     // Z軸回転
@@ -154,7 +154,7 @@ void Sprite::Update()
 
 void Sprite::Draw()
 {
-    SpriteCommon* spriteCommon = SpriteCommon::GetInstance();
+    SpriteBase* spriteCommon = SpriteBase::GetInstance();
     if (isInvisible_) {
         return;
     }

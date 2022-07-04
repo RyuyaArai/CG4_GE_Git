@@ -12,7 +12,7 @@ Input* Input::GetInstance() {
     return &instance;
 }
 
-void Input::Initialize(WinApp* winApp) {
+void Input::Initialize(WindowsAPP* winApp) {
     HRESULT result;
     this->winApp = winApp;
     result = DirectInput8Create(
