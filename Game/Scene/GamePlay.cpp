@@ -108,6 +108,7 @@ void GamePlay::Create3D_object() {
 	fbxObject1 = new FbxObject3d;
 	fbxObject1->Initialize();
 	fbxObject1->SetModel(fbxModel1);
+	fbxObject1->SetRotation()
 
 
 }
@@ -169,7 +170,7 @@ void GamePlay::CameraCreateSet() {
 	Object3d::SetCamera(camera);
 	FbxObject3d::SetCamera(camera);
 
-	camera->SetTarget({ 0,0,0 });
-	camera->SetDistance(30.0f);
+	camera->SetTarget({ 0,2.5f,0 });
+	camera->SetDistance(8.0f);
 	camera->SetEye({ 0, 0, 0 });
 }

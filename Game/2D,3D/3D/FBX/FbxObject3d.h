@@ -46,6 +46,7 @@ public:
 	void PlayAnimation();
 
 	void SetModel(FbxModel* fbxModel) { this->fbxModel = fbxModel; }
+	void SetRotation(XMFLOAT3 rota) { this->rotation = rota; }
 
 public:
 	static void SetDevice(ID3D12Device* device) { FbxObject3d::device = device; }
