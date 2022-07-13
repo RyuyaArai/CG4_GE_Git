@@ -7,6 +7,8 @@
 #include "SpriteBase.h"
 #include "DebugCamera.h"
 #include "SceneManager.h"
+#include "PostEffect.h"
+
 
 #include "ObjModel.h"
 #include"Sprite.h"
@@ -36,5 +38,6 @@ protected:
 	SpriteBase* spriteCommon_ = nullptr;
 	GameAudio* audio_ = nullptr;
 	SceneManager* sceneManager_ = nullptr;
+	PostEffect* postEffect_ = nullptr;
 };
 

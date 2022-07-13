@@ -39,6 +39,7 @@ void Framework::Initialize() {
 	spriteCommon_ = SpriteBase::GetInstance();
 	spriteCommon_->initialize(dxCommon_->GetDev(), dxCommon_->GetCmdList(), winApp_->window_width, winApp_->window_height);
 
+
 	Object3d::StaticInitialize(dxCommon_->GetDev());
 	
 	sceneManager_ = new SceneManager();
@@ -76,7 +77,7 @@ void Framework::Update() {
 void Framework::Draw() {
 	dxCommon_->PreDraw();
 
-	sceneManager_->Draw();
+	//sceneManager_->Draw();
 
 	dxCommon_->PostDraw();
 }

@@ -163,7 +163,6 @@
     <ClCompile Include="Base\Main\SceneManager\SceneManager.cpp" />
     <ClCompile Include="CreGraPl.cpp" />
     <ClCompile Include="Game\2D,3D\2D\Sprite.cpp" />
-    <ClCompile Include="Game\2D,3D\2D\SpriteBase.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxLoader.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxModel.cpp" />
     <ClCompile Include="Game\2D,3D\3D\FBX\FbxObject3d.cpp" />
@@ -173,6 +172,7 @@
     <ClCompile Include="Game\Scene\GameSceneBase.cpp" />
     <ClCompile Include="Game\Scene\Title.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PostEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2019_Win10.vcxproj">
@@ -272,7 +272,6 @@
     <ClInclude Include="Base\Main\SceneManager\SceneManager.h" />
     <ClInclude Include="CreGraPl.h" />
     <ClInclude Include="Game\2D,3D\2D\Sprite.h" />
-    <ClInclude Include="Game\2D,3D\2D\SpriteBase.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxLoader.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxModel.h" />
     <ClInclude Include="Game\2D,3D\3D\FBX\FbxObject3d.h" />
@@ -281,6 +280,7 @@
     <ClInclude Include="Game\Scene\GamePlay.h" />
     <ClInclude Include="Game\Scene\GameSceneBase.h" />
     <ClInclude Include="Game\Scene\Title.h" />
+    <ClInclude Include="PostEffect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -108,7 +108,7 @@ void GamePlay::Create3D_object() {
 	fbxObject1 = new FbxObject3d;
 	fbxObject1->Initialize();
 	fbxObject1->SetModel(fbxModel1);
-	fbxObject1->SetRotation()
+	fbxObject1->SetRotation({ 0,90,0 });
 
 
 }
