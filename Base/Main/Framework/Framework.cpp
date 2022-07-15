@@ -36,8 +36,6 @@ void Framework::Initialize() {
 	input_ = Input::GetInstance();
 	input_->Initialize(winApp_);
 	
-	spriteCommon_ = SpriteBase::GetInstance();
-	spriteCommon_->initialize(dxCommon_->GetDev(), dxCommon_->GetCmdList(), winApp_->window_width, winApp_->window_height);
 
 
 	Object3d::StaticInitialize(dxCommon_->GetDev());

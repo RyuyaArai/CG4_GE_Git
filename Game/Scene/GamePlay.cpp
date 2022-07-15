@@ -79,7 +79,6 @@ void GamePlay::Draw() {
 	//objChr->Draw();
 	fbxObject1->Draw(DirectXBase::GetInstance()->GetCmdList());
 	Object3d::PostDraw();
-	SpriteBase::GetInstance()->PreDraw();
 	for (auto& sprite : sprites)
 	{
 		sprite->Draw();
@@ -151,16 +150,12 @@ void GamePlay::ClassUpdate() {
 	fbxObject1->Update();
 	for (auto& sprite : sprites)
 	{
-		sprite->Update();
 	}
 	camera->Update();
 
 }
 
 void GamePlay::SpriteLoadTex() {
-	SpriteBase* spriteCommon = SpriteBase::GetInstance();
-	spriteCommon->LoadTexture(0, L"Resources/texture.png");
-	spriteCommon->LoadTexture(1, L"Resources/house.png");
 
 }
 
