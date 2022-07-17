@@ -80,12 +80,13 @@ void Framework::Update() {
 }
 
 void Framework::Draw() {
-	postEffect_->PreDrawScene(DirectXBase::GetInstance()->GetCmdList());
+	//postEffect_->PreDrawScene(DirectXBase::GetInstance()->GetCmdList());
 	sceneManager_->Draw();
-	postEffect_->PostDrawScene(DirectXBase::GetInstance()->GetCmdList());
+	//postEffect_->PostDrawScene(DirectXBase::GetInstance()->GetCmdList());
 	dxCommon_->PreDraw();
+	sceneManager_->Draw();
 
-	postEffect_->Draw(DirectXBase::GetInstance()->GetCmdList());
+	//postEffect_->Draw(DirectXBase::GetInstance()->GetCmdList());
 
 	dxCommon_->PostDraw();
 }
