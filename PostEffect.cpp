@@ -10,7 +10,7 @@
 
 using namespace DirectX;
 
-const float PostEffect::clearColor[4] = { 1.0f,0.5f,0.1f,0.0f };
+const float PostEffect::clearColor[4] = { 1.0f,1.0f,0.1f,0.0f };
 
 PostEffect::PostEffect()
 	: Sprite(

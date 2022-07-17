@@ -4,6 +4,7 @@
 #include"Object3d.h"
 #include"FbxObject3d.h"
 #include"DebugCamera.h"
+#include"PostEffect.h"
 
 
 class DirectXBase;

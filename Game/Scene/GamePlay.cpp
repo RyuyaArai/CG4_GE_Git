@@ -113,28 +113,9 @@ void GamePlay::Create3D_object() {
 }
 
 void GamePlay::Create2D_object() {
+	
 
-	//Sprite* sprite = Sprite::Create(0, { 0,0, }, false, false);
-	//sprites.push_back(sprite);
-	//sprite->SetPosition({ 500,300,0 });
 
-	//for (int i = 0; i < 20; i++) {
-	//	int texNum = rand() % 2;
-
-	//	sprite = Sprite::Create(texNum, { 0,0 }, false, false);
-
-	//	sprite->SetPosition({ (float)(rand() % 1280),(float)(rand() % 720),0 });
-
-	//	//sprite->SetRotation((float)(rand() % 360));
-
-	//	sprite->SetSize({ (float)(rand() % 400), (float)(rand() % 100) });
-
-	//	sprite->TransferVertexBuffer();
-
-	//	sprites.push_back(sprite);
-	//	//sprite->SetPosition({ 500,300,0 });
-
-	//}
 }
 
 void GamePlay::ChangeScene() {
@@ -156,6 +137,7 @@ void GamePlay::ClassUpdate() {
 }
 
 void GamePlay::SpriteLoadTex() {
+	Sprite::LoadTexture(100, L"Resources/white1x1.png");
 
 }
 
