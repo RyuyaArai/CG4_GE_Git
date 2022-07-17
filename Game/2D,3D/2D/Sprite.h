@@ -1,79 +1,158 @@
 ﻿#pragma once
+
+#include <Windows.h>
 #include <wrl.h>
 #include <d3d12.h>
 #include <DirectXMath.h>
-#include"SpriteBase.h"
+
+
+/// スプライト
 
 class Sprite
 {
-private:
+private: // エイリアス
+	// Microsoft::WRL::を省略
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+	// DirectX::を省略
 	using XMFLOAT2 = DirectX::XMFLOAT2;
 	using XMFLOAT3 = DirectX::XMFLOAT3;
 	using XMFLOAT4 = DirectX::XMFLOAT4;
 	using XMMATRIX = DirectX::XMMATRIX;
 
-public:
+public: // サブクラス
+
+	/// 頂点データ構造体
 	struct VertexPosUv
 	{
 		XMFLOAT3 pos; // xyz座標
 		XMFLOAT2 uv;  // uv座標
 	};
 
-	struct ConstBufferData {
-		XMFLOAT4 color; // 色 (RGBA)
-		XMMATRIX mat;   // ３Ｄ変換行列
+
+	/// 定数バッファ用データ構造体
+
+	struct ConstBufferData
+	{
+		XMFLOAT4 color;	// 色 (RGBA)
+		XMMATRIX mat;	// ３Ｄ変換行列
 	};
 
-private:
-	//頂点バッファ;
-	ComPtr<ID3D12Resource> vertBuff_;
-	//頂点バッファビュー;
-	D3D12_VERTEX_BUFFER_VIEW vbView_{};
-	//定数バッファ;
-	ComPtr<ID3D12Resource> constBuff_;
-	// Z軸回りの回転角
-	float rotation_ = 0.0f;
-	// 座標
-	XMFLOAT3 position_ = { 0,0,0 };
-	// ワールド行列
-	XMMATRIX matWorld_;
-	// 色(RGBA)
-	XMFLOAT4 color_ = { 1, 1, 1, 1 };
-	// テクスチャ番号
-	UINT texNumber_ = 0;
-	// 大きさ
-	XMFLOAT2 size_ = { 100, 100 };
-	// アンカーポイント
-	XMFLOAT2 anchorpoint_ = { 0.5f, 0.5f };
-	// 左右反転
-	bool isFlipX_ = false;
-	// 上下反転
-	bool isFlipY_ = false;
-	// テクスチャ左上座標
-	XMFLOAT2 texLeftTop_ = { 0, 0 };
-	// テクスチャ切り出しサイズ
-	XMFLOAT2 texSize_ = { 100, 100 };
-	// 非表示
-	bool isInvisible_ = false;
+public: // 静的メンバ関数
+	static bool StaticInitialize(ID3D12Device* device, ID3D12GraphicsCommandList* cmdList, int window_width, int window_height);
+
+	/// テクスチャ読み込み
+	static bool LoadTexture(UINT texnumber, const wchar_t* filename);
+
+	/// 描画前処理
+	static void PreDraw();
+
+	/// 描画後処理
+	static void PostDraw();
+
+	/// スプライト生成
+	static Sprite* Create(UINT texNumber, XMFLOAT2 position, XMFLOAT4 color = { 1, 1, 1, 1 }, XMFLOAT2 anchorpoint = { 0.0f, 0.0f }, bool isFlipX = false, bool isFlipY = false);
+
+protected: // 静的メンバ変数
+	// テクスチャの最大枚数
+	static const int srvCount = 512;
+	// 頂点数
+	static const int vertNum = 4;
+	// デバイス
+	static ID3D12Device* device;
+	// デスクリプタサイズ
+	static UINT descriptorHandleIncrementSize;
+	// コマンドリスト
+	static ID3D12GraphicsCommandList* cmdList;
+	// ルートシグネチャ
+	static ComPtr<ID3D12RootSignature> rootSignature;
+	// パイプラインステートオブジェクト
+	static ComPtr<ID3D12PipelineState> pipelineState;
+	// 射影行列
+	static XMMATRIX matProjection;
+	// デスクリプタヒープ
+	static ComPtr<ID3D12DescriptorHeap> descHeap;
+	// テクスチャバッファ
+	static ComPtr<ID3D12Resource> texBuff[srvCount];
+
+public: // メンバ関数
+
+	/// コンストラクタ
+	Sprite(UINT texNumber, XMFLOAT2 position, XMFLOAT2 size, XMFLOAT4 color, XMFLOAT2 anchorpoint, bool isFlipX, bool isFlipY);
 
 
-public:
+	/// 初期化
+	bool Initialize();
 
-	static Sprite* Create(UINT texNumber, XMFLOAT2 anchorpoint = { 0.5f,0.5f }, bool isFlipX = false, bool isFlipY = false);
 
-	void initialize(UINT texNumber, XMFLOAT2 anchorpoint = { 0.5f,0.5f }, bool isFlipX = false, bool isFlipY = false);
+	/// 角度の設定
+	void SetRotation(float rotation);
 
-	void TransferVertexBuffer();
 
-	void Update();
+	/// 座標の設定
+	void SetPosition(XMFLOAT2 position);
 
-	void SetPosition(const XMFLOAT3 position) { position_ = position; }
+	/// 座標の取得
+	const XMFLOAT2& GetPosition() { return position; }
 
-	void SetRotation(float rotation) { rotation_ = rotation; }
+	/// サイズの設定
+	void SetSize(XMFLOAT2 size);
 
-	void SetSize(XMFLOAT2 size) { size_ = size; }
+
+	/// カラーの設定
+	void Sprite::SetColor(XMFLOAT4 color);
+
+
+	/// アンカーポイントの設定
+	void SetAnchorPoint(XMFLOAT2 anchorpoint);
+
+
+	/// 左右反転の設定
+	void SetIsFlipX(bool isFlipX);
+
+
+	/// 上下反転の設定
+	void SetIsFlipY(bool isFlipY);
+
+
+	/// テクスチャ範囲設定
+	void SetTextureRect(XMFLOAT2 texBase, XMFLOAT2 texSize);
+
+
+	/// 描画
 
 	void Draw();
 
+protected: // メンバ変数
+	// 頂点バッファ
+	ComPtr<ID3D12Resource> vertBuff;
+	// 定数バッファ
+	ComPtr<ID3D12Resource> constBuff;
+	// 頂点バッファビュー
+	D3D12_VERTEX_BUFFER_VIEW vbView{};
+	// テクスチャ番号
+	UINT texNumber = 0;
+	// Z軸回りの回転角
+	float rotation = 0.0f;
+	// 座標
+	XMFLOAT2 position{};
+	// スプライト幅、高さ
+	XMFLOAT2 size = { 100.0f, 100.0f };
+	// アンカーポイント
+	XMFLOAT2 anchorpoint = { 0, 0 };
+	// ワールド行列
+	XMMATRIX matWorld{};
+	// 色
+	XMFLOAT4 color = { 1, 1, 1, 1 };
+	// 左右反転
+	bool isFlipX = false;
+	// 上下反転
+	bool isFlipY = false;
+	// テクスチャ始点
+	XMFLOAT2 texBase = { 0, 0 };
+	// テクスチャ幅、高さ
+	XMFLOAT2 texSize = { 100.0f, 100.0f };
+
+private: // メンバ関数
+	/// 頂点データ転送
+	void TransferVertices();
 };

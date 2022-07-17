@@ -79,7 +79,6 @@ void GamePlay::Draw() {
 	//objChr->Draw();
 	fbxObject1->Draw(DirectXBase::GetInstance()->GetCmdList());
 	Object3d::PostDraw();
-	SpriteBase::GetInstance()->PreDraw();
 	for (auto& sprite : sprites)
 	{
 		sprite->Draw();
@@ -108,34 +107,15 @@ void GamePlay::Create3D_object() {
 	fbxObject1 = new FbxObject3d;
 	fbxObject1->Initialize();
 	fbxObject1->SetModel(fbxModel1);
-	fbxObject1->SetRotation()
+	fbxObject1->SetRotation({ 0,90,0 });
 
 
 }
 
 void GamePlay::Create2D_object() {
+	
 
-	//Sprite* sprite = Sprite::Create(0, { 0,0, }, false, false);
-	//sprites.push_back(sprite);
-	//sprite->SetPosition({ 500,300,0 });
 
-	//for (int i = 0; i < 20; i++) {
-	//	int texNum = rand() % 2;
-
-	//	sprite = Sprite::Create(texNum, { 0,0 }, false, false);
-
-	//	sprite->SetPosition({ (float)(rand() % 1280),(float)(rand() % 720),0 });
-
-	//	//sprite->SetRotation((float)(rand() % 360));
-
-	//	sprite->SetSize({ (float)(rand() % 400), (float)(rand() % 100) });
-
-	//	sprite->TransferVertexBuffer();
-
-	//	sprites.push_back(sprite);
-	//	//sprite->SetPosition({ 500,300,0 });
-
-	//}
 }
 
 void GamePlay::ChangeScene() {
@@ -151,16 +131,13 @@ void GamePlay::ClassUpdate() {
 	fbxObject1->Update();
 	for (auto& sprite : sprites)
 	{
-		sprite->Update();
 	}
 	camera->Update();
 
 }
 
 void GamePlay::SpriteLoadTex() {
-	SpriteBase* spriteCommon = SpriteBase::GetInstance();
-	spriteCommon->LoadTexture(0, L"Resources/texture.png");
-	spriteCommon->LoadTexture(1, L"Resources/house.png");
+	Sprite::LoadTexture(100, L"Resources/white1x1.png");
 
 }
 

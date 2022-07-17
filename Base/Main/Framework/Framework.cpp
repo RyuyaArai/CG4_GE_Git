@@ -36,8 +36,14 @@ void Framework::Initialize() {
 	input_ = Input::GetInstance();
 	input_->Initialize(winApp_);
 	
-	spriteCommon_ = SpriteBase::GetInstance();
-	spriteCommon_->initialize(dxCommon_->GetDev(), dxCommon_->GetCmdList(), winApp_->window_width, winApp_->window_height);
+	Sprite::StaticInitialize(
+		DirectXBase::GetInstance()->GetDev(),
+		DirectXBase::GetInstance()->GetCmdList(),
+		winApp_->window_width,
+		winApp_->window_height
+);
+	postEffect_ = new PostEffect();
+	postEffect_->Initialize();
 
 	Object3d::StaticInitialize(dxCommon_->GetDev());
 	
@@ -74,9 +80,12 @@ void Framework::Update() {
 }
 
 void Framework::Draw() {
+	postEffect_->PreDrawScene(DirectXBase::GetInstance()->GetCmdList());
+	sceneManager_->Draw();
+	postEffect_->PostDrawScene(DirectXBase::GetInstance()->GetCmdList());
 	dxCommon_->PreDraw();
 
-	sceneManager_->Draw();
+	postEffect_->Draw(DirectXBase::GetInstance()->GetCmdList());
 
 	dxCommon_->PostDraw();
 }
