@@ -441,8 +441,26 @@ void PostEffect::PostDrawScene(ID3D12GraphicsCommandList* cmdList) {
 		);
 	}
 }
+
 void PostEffect::Draw(ID3D12GraphicsCommandList* cmdList) {
 	
+	//if(Input::GetInstance()->TriggerKey(DIK_1)){
+	//	//デスクリプタヒープにSRV作成
+	//	static int tex = 0;
+	//	//テクスチャ番号を0と1で切替え
+	//	tex = (tex + 1) % 2;
+
+	//	//SRV設定
+	//	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};//設定構造体
+	//	srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	//	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	//	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;//2dテクスチャ
+	//	srvDesc.Texture2D.MipLevels = 1;
+	//	device->CreateShaderResourceView(texBuff[tex].Get(),
+	//		&srvDesc,
+	//		descHeapSRV->GetCPUDescriptorHandleForHeapStart());
+	//}
+
 	this->matWorld = XMMatrixIdentity();
 	this->matWorld *= XMMatrixRotationZ(XMConvertToRadians(rotation));
 	this->matWorld *= XMMatrixTranslation(position.x, position.y, 0.0f);
