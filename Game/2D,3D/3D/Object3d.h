@@ -9,6 +9,7 @@
 
 #include"ObjModel.h"
 #include"Camera.h"
+#include"Light.h"
 //#include"PipelineSet.h"
 
 /// 3Dオブジェクト
@@ -71,6 +72,10 @@ public: // 静的メンバ関数
 		Object3d::camera = camera;
 	}
 
+	static void SetLight(Light* light) {
+		Object3d::light = light;
+	}
+
 	/// 描画後処理
 	static void PostDraw();
 
@@ -92,6 +97,8 @@ private: // 静的メンバ変数
 
 	// カメラ
 	static Camera* camera;
+
+	static Light* light;
 	// パイプライン
 	static PipelineSet pipelineSet;
 

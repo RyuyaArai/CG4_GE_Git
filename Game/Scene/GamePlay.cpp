@@ -6,6 +6,8 @@
 #include "FbxLoader.h"
 #include "FbxObject3d.h"
 
+using namespace DirectX;
+
 GamePlay::GamePlay(SceneManager* sceneManager)
 	:SceneBase(sceneManager)
 {
@@ -60,6 +62,13 @@ void GamePlay::Update() {
 		if (input->PushKey(DIK_UP)) {
 		}
 	}
+	static XMVECTOR lightDir = { 0,1,5,0 };
+
+	if (input->PushKey(DIK_W)) { lightDir.m128_f32[1] += 1.0f; }
+	else if (input->PushKey(DIK_S)) { lightDir.m128_f32[1] -= 1.0f; }
+	if (input->PushKey(DIK_D)) { lightDir.m128_f32[0] += 1.0f; }
+	else if (input->PushKey(DIK_A)) { lightDir.m128_f32[0] -= 1.0f; }
+	light->SetLightDir(lightDir);
 
 
 	if (input->PushKey(DIK_D) || input->PushKey(DIK_A)) {
@@ -76,8 +85,8 @@ void GamePlay::Update() {
 void GamePlay::Draw() {
 	Object3d::PreDraw(DirectXBase::GetInstance()->GetCmdList());
 	//objPost->Draw();
-	//objChr->Draw();
-	fbxObject1->Draw(DirectXBase::GetInstance()->GetCmdList());
+	objChr->Draw();
+	//fbxObject1->Draw(DirectXBase::GetInstance()->GetCmdList());
 	Object3d::PostDraw();
 	for (auto& sprite : sprites)
 	{
@@ -96,8 +105,8 @@ void GamePlay::Create3D_object() {
 	objPost->SetModel(modelPost);
 	objChr->SetModel(modelChr);
 
-	objPost->SetPosition({ -10,0,-5 });
-	objChr->SetPosition({ +10,0,+5 });
+	objPost->SetPosition({ 0,0,0 });
+	objChr->SetPosition({ 0,0,0 });
 
 	objPost->Update();
 	objChr->Update();
@@ -109,6 +118,9 @@ void GamePlay::Create3D_object() {
 	fbxObject1->SetModel(fbxModel1);
 	fbxObject1->SetRotation({ 0,90,0 });
 
+	light = Light::Create();
+	light->SetLightColor({ 1,1,1 });
+	Object3d::SetLight(light);
 
 }
 
@@ -129,6 +141,8 @@ void GamePlay::ClassUpdate() {
 	objPost->Update();
 	objChr->Update();
 	fbxObject1->Update();
+	light->Update();
+
 	for (auto& sprite : sprites)
 	{
 	}
@@ -148,6 +162,6 @@ void GamePlay::CameraCreateSet() {
 	FbxObject3d::SetCamera(camera);
 
 	camera->SetTarget({ 0,2.5f,0 });
-	camera->SetDistance(8.0f);
+	camera->SetDistance(100.0f);
 	camera->SetEye({ 0, 0, 0 });
 }

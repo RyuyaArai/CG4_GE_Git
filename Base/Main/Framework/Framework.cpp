@@ -46,7 +46,8 @@ void Framework::Initialize() {
 	postEffect_->Initialize();
 
 	Object3d::StaticInitialize(dxCommon_->GetDev());
-	
+	Light::StaticInitialize(dxCommon_->GetDev());
+
 	sceneManager_ = new SceneManager();
 
 	FbxLoader::GetInstance()->Initialize(dxCommon_->GetDev());

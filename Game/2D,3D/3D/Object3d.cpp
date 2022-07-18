@@ -20,6 +20,7 @@ ID3D12GraphicsCommandList* Object3d::cmdList = nullptr;
 Object3d::PipelineSet Object3d::pipelineSet;
 
 Camera* Object3d::camera = nullptr;
+Light* Object3d::light = nullptr;
 
 void Object3d::StaticInitialize(ID3D12Device* device, Camera* camera)
 {
@@ -87,7 +88,7 @@ bool Object3d::InitializeGraphicsPipeline()
 
 	// 頂点シェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/OBJVS.hlsl",	// シェーダファイル名
+		L"Resources/shaders/objPhongVS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE, // インクルード可能にする
 		"main", "vs_5_0",	// エントリーポイント名、シェーダーモデル指定
@@ -110,7 +111,7 @@ bool Object3d::InitializeGraphicsPipeline()
 
 	// ピクセルシェーダの読み込みとコンパイル
 	result = D3DCompileFromFile(
-		L"Resources/shaders/OBJPS.hlsl",	// シェーダファイル名
+		L"Resources/shaders/objPhongPS.hlsl",	// シェーダファイル名
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE, // インクルード可能にする
 		"main", "ps_5_0",	// エントリーポイント名、シェーダーモデル指定
@@ -301,6 +302,8 @@ void Object3d::Draw()
 	cmdList->SetGraphicsRootSignature(pipelineSet.rootsignature.Get());
 	// 定数バッファビューをセット
 	cmdList->SetGraphicsRootConstantBufferView(0, constBuffB0->GetGPUVirtualAddress());
+
+	light->Draw(cmdList, 3);
 
 	model->Draw(cmdList, 1);
 

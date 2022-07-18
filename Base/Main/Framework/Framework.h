@@ -7,7 +7,7 @@
 #include "DebugCamera.h"
 #include "SceneManager.h"
 #include "PostEffect.h"
-
+#include "Light.h"
 
 #include "ObjModel.h"
 #include"Sprite.h"

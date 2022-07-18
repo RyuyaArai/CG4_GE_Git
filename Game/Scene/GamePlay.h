@@ -5,6 +5,7 @@
 #include"FbxObject3d.h"
 #include"DebugCamera.h"
 #include"PostEffect.h"
+#include"Light.h"
 
 
 class DirectXBase;
@@ -18,6 +19,7 @@ private: // エイリアス
 	using XMFLOAT3 = DirectX::XMFLOAT3;
 	using XMFLOAT4 = DirectX::XMFLOAT4;
 	using XMMATRIX = DirectX::XMMATRIX;
+
 public:
 	GamePlay(SceneManager* sceneManager);
 	
@@ -41,6 +43,7 @@ private:
 
 private:
 	Sprite* sprite = nullptr;
+	Light* light = nullptr;
 
 	ObjModel* modelPost = nullptr;
 	ObjModel* modelChr = nullptr;
