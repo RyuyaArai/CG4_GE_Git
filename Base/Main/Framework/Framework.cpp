@@ -42,8 +42,8 @@ void Framework::Initialize() {
 		winApp_->window_width,
 		winApp_->window_height
 );
-	postEffect_ = new PostEffect();
-	postEffect_->Initialize();
+	//postEffect_ = new PostEffect();
+	//postEffect_->Initialize();
 
 	Object3d::StaticInitialize(dxCommon_->GetDev());
 	Light::StaticInitialize(dxCommon_->GetDev());
