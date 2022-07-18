@@ -108,6 +108,8 @@ void GamePlay::Create3D_object() {
 	objPost->SetPosition({ 0,0,0 });
 	objChr->SetPosition({ 0,0,0 });
 
+	objChr->SetRotation({ 0,180,0 });
+
 	objPost->Update();
 	objChr->Update();
 

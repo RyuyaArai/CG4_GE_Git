@@ -132,6 +132,7 @@ public: // メンバ関数
 
 	/// 座標の設定
 	void SetPosition(XMFLOAT3 position) { this->position = position; }
+	void SetRotation(XMFLOAT3 rotation) { this->rotation = rotation; }
 
 private: // メンバ変数
 	ComPtr<ID3D12Resource> constBuffB0; // 定数バッファ
