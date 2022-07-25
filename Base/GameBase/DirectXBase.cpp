@@ -152,7 +152,7 @@ void DirectXBase::InitializeDevice() {
     if (SUCCEEDED(dev->QueryInterface(IID_PPV_ARGS(&infoQueue)))) {
         infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
         infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
-        infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
+        //infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
     }
 
 }
