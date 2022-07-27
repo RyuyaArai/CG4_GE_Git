@@ -15,11 +15,12 @@ void GamePlay::Initialize() {
 
 	FbxObject3d::SetDevice(DirectXBase::GetInstance()->GetDev());
 	FbxObject3d::CreateGraphicsPipeline();
+	VariableInitialize();
 	CameraCreateSet();
 	SpriteLoadTex();
 	Create2D_object();
 	Create3D_object();
-	
+
 }
 
 void GamePlay::Finalize() {
@@ -41,15 +42,28 @@ void GamePlay::Finalize() {
 void GamePlay::Update() {
 	Input* input = Input::GetInstance();
 
-	
+
 	if (input->TriggerKey(DIK_0)) {
 
 		OutputDebugStringA("Hit 0\n");  // 出力ウィンドウに「Hit 0」と表示
 	}
 
+	if (jump->isglide == true) {
+		jump->fallSpeed = 0.2f;
+	}
+
+	if (jump->isJump == false) {
+		jump->isJump = true;
+	}
+	else if (jump->isDouble == false) {
+		jump->isDouble = true;
+	}
+	else {
+		jump->isglide = true;
+	}
+		
 
 	if (input->PushKey(DIK_SPACE)) {
-		fbxObject1->PlayAnimation();
 
 	}
 
@@ -67,7 +81,7 @@ void GamePlay::Update() {
 	}
 
 	ClassUpdate();
-	
+
 	if (input->TriggerKey(DIK_RETURN)) {
 		ChangeScene();
 	}
@@ -104,11 +118,11 @@ void GamePlay::Create3D_object() {
 	objChr->Update();
 
 
-	fbxModel1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
-	fbxObject1 = new FbxObject3d;
-	fbxObject1->Initialize();
-	fbxObject1->SetModel(fbxModel1);
-	fbxObject1->SetRotation()
+	//fbxModel1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
+	//fbxObject1 = new FbxObject3d;
+	//fbxObject1->Initialize();
+	//fbxObject1->SetModel(fbxModel1);
+	//fbxObject1->SetRotation()
 
 
 }
@@ -173,4 +187,11 @@ void GamePlay::CameraCreateSet() {
 	camera->SetTarget({ 0,2.5f,0 });
 	camera->SetDistance(8.0f);
 	camera->SetEye({ 0, 0, 0 });
+}
+
+void GamePlay::VariableInitialize() {
+	jump->isJump = false;
+	jump->isDouble = false;
+	jump->isglide = false;
+	jump->fallSpeed = 2.0f;
 }

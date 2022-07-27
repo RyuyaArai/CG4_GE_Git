@@ -9,6 +9,15 @@
 class DirectXBase;
 
 class GamePlay : public SceneBase {
+
+private:
+	struct Jump {
+		bool isJump;
+		bool isDouble;
+		bool isglide;
+		float fallSpeed;
+	};
+
 public:
 	GamePlay(SceneManager* sceneManager);
 	
@@ -25,12 +34,25 @@ private:
 	void Create2D_object();
 	void SpriteLoadTex();
 	void CameraCreateSet();
+	void VariableInitialize();
 private:
 	//更新
 	void ChangeScene();
 	void ClassUpdate();
 
 private:
+	static const int MaxModel = 30;
+
+	enum {
+		post,
+		chara
+	};
+
+	ObjModel* objModel[MaxModel] = { nullptr };
+	Object3d* obj3dObj[MaxModel] = { nullptr };
+
+private:
+
 	Sprite* sprite = nullptr;
 
 	ObjModel* modelPost = nullptr;
@@ -45,5 +67,8 @@ private:
 	
 	DebugCamera* camera = nullptr;
 	std::vector<Sprite*> sprites;
+
+	Jump* jump = nullptr;
+
 };
 
