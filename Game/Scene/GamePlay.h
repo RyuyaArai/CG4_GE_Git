@@ -9,7 +9,14 @@
 class DirectXBase;
 
 class GamePlay : public SceneBase {
-
+private: // エイリアス
+// Microsoft::WRL::を省略
+	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+	// DirectX::を省略
+	using XMFLOAT2 = DirectX::XMFLOAT2;
+	using XMFLOAT3 = DirectX::XMFLOAT3;
+	using XMFLOAT4 = DirectX::XMFLOAT4;
+	using XMMATRIX = DirectX::XMMATRIX;
 private:
 	struct Jump {
 		bool isJump;
@@ -35,6 +42,7 @@ private:
 	void SpriteLoadTex();
 	void CameraCreateSet();
 	void VariableInitialize();
+	void CameraUpdate();
 private:
 	//更新
 	void ChangeScene();
@@ -55,10 +63,10 @@ private:
 
 	Sprite* sprite = nullptr;
 
-	ObjModel* modelPost = nullptr;
+	ObjModel* modelblock = nullptr;
 	ObjModel* modelChr = nullptr;
 	
-	Object3d* objPost = nullptr;
+	Object3d* objblock = nullptr;
 	Object3d* objChr = nullptr;
 	
 	FbxModel* fbxModel1 = nullptr;
@@ -68,7 +76,7 @@ private:
 	DebugCamera* camera = nullptr;
 	std::vector<Sprite*> sprites;
 
-	Jump* jump = nullptr;
+	Jump jump;
 
 };
 

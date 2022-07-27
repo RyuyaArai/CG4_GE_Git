@@ -19,5 +19,19 @@ public:
 	float TwoDimensionalWavelet(float x, float y, float ax, float ay);
 	float ThreeDimensionalWavelet(float x, float y, float z, float ax, float ay, float az);
 
+	float Fade(float t);
+
+	float Lerp(float a, float b, float t);
+
+	float SampleGrad(unsigned int hash, float a, float b);
+
+	float SamplePNoise(float x, float y);
+
+	float SampleOctavePerlinNoise(float x, float y);
+
+private:
+	static const int SampleHashCodeMax;
+	static const int SampleHashCodeTavleNum;
+
 };
 
