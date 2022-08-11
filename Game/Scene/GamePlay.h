@@ -4,6 +4,7 @@
 #include"Object3d.h"
 #include"FbxObject3d.h"
 #include"DebugCamera.h"
+#include "Player.h"
 
 
 class DirectXBase;
@@ -54,6 +55,8 @@ private:
 	Object3d* obj3dObj[MaxModel] = { nullptr };
 
 private:
+
+	Player* player = nullptr;
 
 	Sprite* sprite = nullptr;
 

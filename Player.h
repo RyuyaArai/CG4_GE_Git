@@ -27,7 +27,17 @@ public:
 	void Update();
 
 	void Draw();
+public:
+	static void SetCamera(Camera* camera) {
+		Object3d::SetCamera(camera);
+	}
 
+public:
+	const XMFLOAT3& GetPosition() { return objChr->GetPosition(); }
+
+	void SetPosition(XMFLOAT3 position) { objChr->SetPosition(position); }
+	void SetRotation(XMFLOAT3 rotation) { objChr->SetRotation(rotation); }
+	void SetScale(XMFLOAT3 scale) { objChr->SetScale(scale); }
 private:
 	ObjModel* modelChr = nullptr;
 

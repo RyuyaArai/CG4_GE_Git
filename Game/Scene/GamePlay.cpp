@@ -61,6 +61,7 @@ void GamePlay::Draw() {
 	Object3d::PreDraw(DirectXBase::GetInstance()->GetCmdList());
 	objblock->Draw();
 	//fbxObject1->Draw(DirectXBase::GetInstance()->GetCmdList());
+	player->Draw();
 	Object3d::PostDraw();
 	SpriteBase::GetInstance()->PreDraw();
 	for (auto& sprite : sprites)
@@ -83,6 +84,8 @@ void GamePlay::Create3D_object() {
 	objblock->SetScale(scale);
 
 	objblock->Update();
+	player = new Player();
+	player->Initialize();
 
 	//fbxModel1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
 	//fbxObject1 = new FbxObject3d;
@@ -125,7 +128,7 @@ void GamePlay::ChangeScene() {
 }
 
 void GamePlay::ClassUpdate() {
-
+	player->Update();
 	objblock->Update();
 	//fbxObject1->Update();
 	for (auto& sprite : sprites)
@@ -159,7 +162,7 @@ void GamePlay::VariableInitialize() {
 
 void GamePlay::CameraUpdate() {
 
-	XMFLOAT3 chrpos = objChr->GetPosition();
+	XMFLOAT3 chrpos = player->GetPosition();
 	camera->SetTarget({ chrpos.x,chrpos.y + 40.0f,chrpos.z - 60.0f });
 	camera->SetDistance(20.0f);
 	camera->SetEye({ chrpos.x,chrpos.y,chrpos.z });
