@@ -17,13 +17,7 @@ private: // エイリアス
 	using XMFLOAT3 = DirectX::XMFLOAT3;
 	using XMFLOAT4 = DirectX::XMFLOAT4;
 	using XMMATRIX = DirectX::XMMATRIX;
-private:
-	struct Jump {
-		bool isJump;
-		bool isDouble;
-		bool isglide;
-		float fallSpeed;
-	};
+
 
 public:
 	GamePlay(SceneManager* sceneManager);
@@ -64,10 +58,8 @@ private:
 	Sprite* sprite = nullptr;
 
 	ObjModel* modelblock = nullptr;
-	ObjModel* modelChr = nullptr;
 	
 	Object3d* objblock = nullptr;
-	Object3d* objChr = nullptr;
 	
 	FbxModel* fbxModel1 = nullptr;
 	
@@ -76,7 +68,6 @@ private:
 	DebugCamera* camera = nullptr;
 	std::vector<Sprite*> sprites;
 
-	Jump jump;
 
 };
 

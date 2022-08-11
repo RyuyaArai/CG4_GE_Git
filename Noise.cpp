@@ -1,5 +1,6 @@
 #include "Noise.h"
 #include <stdlib.h>
+#include <time.h>
 
 #define HASH_CODE_MAX       (256)
 #define HASH_CODE_TABLE_NUM     (HASH_CODE_MAX*2)
@@ -14,8 +15,10 @@ float Noise::Wavelet(float t, float a) {
 }
 
 float Noise::PerlinNoise(float t, float a) {
+    srand((unsigned)time(NULL));
 
-	float Rand = rand() % 3 - 2;
+	float Rand = (rand() % 2001 - 1000);
+    Rand = Rand / 1000;
 	float noise = Wavelet(t, a) + t * ((Rand + Wavelet(t, a)) - Wavelet(t, a));
 	return noise;
 }

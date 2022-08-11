@@ -31,8 +31,6 @@ void GamePlay::Finalize() {
 	}
 	//delete sprite;
 	delete modelblock;
-	delete modelChr;
-	delete objChr;
 	delete objblock;
 	delete camera;
 	//delete fbxModel1;
@@ -49,100 +47,6 @@ void GamePlay::Update() {
 		OutputDebugStringA("Hit 0\n");  // 出力ウィンドウに「Hit 0」と表示
 	}
 
-
-	if (objChr->GetPosition().y > 0.0f) {
-		XMFLOAT3 chrpos = objChr->GetPosition();
-
-		if (jump.isglide == true) {
-			if (jump.fallSpeed <= 0.2f) {
-				jump.fallSpeed += 0.1f;
-			}
-			if (jump.fallSpeed >= 0.2f) {
-				jump.fallSpeed -= 0.02f;
-			}
-		}
-		else {
-			jump.fallSpeed += 0.2f;
-
-		}
-		objChr->SetPosition({ chrpos.x,chrpos.y - jump.fallSpeed,chrpos.z });
-
-	}
-	
-	if (objChr->GetPosition().y <= 0.0f) {
-		objChr->SetPosition({ objChr->GetPosition().x, 0, objChr->GetPosition().z });
-		jump.isJump = false;
-		jump.isDouble = false;
-		jump.isglide = false;
-		jump.fallSpeed = 0.0f;
-	}
-
-	if (input->TriggerKey(DIK_SPACE)) {
-		XMFLOAT3 chrpos = objChr->GetPosition();
-
-		if (jump.isglide == false && jump.isDouble == true) {
-			jump.isglide = true;
-		}
-		else if (jump.isglide == true) {
-			jump.isglide = false;
-		}
-
-		if (jump.isDouble == false && jump.isJump == true) {
-			jump.isDouble = true;
-			jump.fallSpeed -= 6.0f;
-		}
-
-		if (jump.isJump == false) {
-			jump.isJump = true;
-			jump.fallSpeed -= 6.0f;
-		}
-
-		objChr->SetPosition({ chrpos.x,chrpos.y - jump.fallSpeed,chrpos.z });
-
-	}
-
-
-	// 座標操作
-	if (input->PushKey(DIK_W) || input->PushKey(DIK_S) ||
-		input->PushKey(DIK_D) || input->PushKey(DIK_A)) {
-
-		float move = 3.0;
-		XMFLOAT3 chrpos = objChr->GetPosition();
-
-		if (input->PushKey(DIK_W)) {
-			chrpos.z += move;
-			if (jump.isglide == true) {
-				objChr->SetRotation({ 20,0,0 });
-			}
-		}
-		if (input->PushKey(DIK_S)) {
-			chrpos.z -= move;
-			if (jump.isglide == true) {
-				objChr->SetRotation({ -20,0,0 });
-			}
-		}
-		if (input->PushKey(DIK_D)) {
-			chrpos.x += move;
-			if (jump.isglide == true) {
-				objChr->SetRotation({ 0,0,-20 });
-			}
-		}
-		if (input->PushKey(DIK_A)) {
-			chrpos.x -= move;
-			if (jump.isglide == true) {
-				objChr->SetRotation({ 0,0,20 });
-			}
-		}
-
-		objChr->SetPosition(chrpos);
-		if (jump.isglide == false) {
-			objChr->SetRotation({ 0,0,0 });
-		}
-	}
-	else {
-		objChr->SetRotation({ 0,0,0 });
-	}
-
 	ClassUpdate();
 
 	if (input->TriggerKey(DIK_RETURN)) {
@@ -156,7 +60,6 @@ void GamePlay::Update() {
 void GamePlay::Draw() {
 	Object3d::PreDraw(DirectXBase::GetInstance()->GetCmdList());
 	objblock->Draw();
-	objChr->Draw();
 	//fbxObject1->Draw(DirectXBase::GetInstance()->GetCmdList());
 	Object3d::PostDraw();
 	SpriteBase::GetInstance()->PreDraw();
@@ -169,22 +72,17 @@ void GamePlay::Draw() {
 void GamePlay::Create3D_object() {
 
 	modelblock = ObjModel::LoadFromOBJ("block");
-	modelChr = ObjModel::LoadFromOBJ("chr_sword");
 
 	objblock = Object3d::Create();
-	objChr = Object3d::Create();
 
 	objblock->SetModel(modelblock);
-	objChr->SetModel(modelChr);
 
 	objblock->SetPosition({ 0,-2,0 });
-	objChr->SetPosition({ +10,50,+5 });
 
 	XMFLOAT3 scale = { 50.0,1.0,50.0 };
 	objblock->SetScale(scale);
 
 	objblock->Update();
-	objChr->Update();
 
 	//fbxModel1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
 	//fbxObject1 = new FbxObject3d;
@@ -229,7 +127,6 @@ void GamePlay::ChangeScene() {
 void GamePlay::ClassUpdate() {
 
 	objblock->Update();
-	objChr->Update();
 	//fbxObject1->Update();
 	for (auto& sprite : sprites)
 	{
@@ -257,10 +154,7 @@ void GamePlay::CameraCreateSet() {
 }
 
 void GamePlay::VariableInitialize() {
-	jump.isJump = false;
-	jump.isDouble = false;
-	jump.isglide = false;
-	jump.fallSpeed = 2.0f;
+
 }
 
 void GamePlay::CameraUpdate() {
