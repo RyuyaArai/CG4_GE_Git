@@ -89,18 +89,7 @@ void Player::Update() {
 		float move = 3.0;
 		XMFLOAT3 chrpos = objChr->GetPosition();
 
-		if (input->PushKey(DIK_W)) {
-			chrpos.z += move;
-			if (jump.isglide == true) {
-				objChr->SetRotation({ 20,0,0 });
-			}
-		}
-		if (input->PushKey(DIK_S)) {
-			chrpos.z -= move;
-			if (jump.isglide == true) {
-				objChr->SetRotation({ -20,0,0 });
-			}
-		}
+		
 		if (input->PushKey(DIK_D)) {
 			chrpos.x += move;
 			if (jump.isglide == true) {
@@ -111,6 +100,18 @@ void Player::Update() {
 			chrpos.x -= move;
 			if (jump.isglide == true) {
 				objChr->SetRotation({ 0,0,20 });
+			}
+		}
+		if (input->PushKey(DIK_W)) {
+			chrpos.z += move;
+			if (jump.isglide == true) {
+				objChr->SetRotation({ 20,0,0 });
+			}
+		}
+		if (input->PushKey(DIK_S)) {
+			chrpos.z -= move;
+			if (jump.isglide == true) {
+				objChr->SetRotation({ -20,0,0 });
 			}
 		}
 
@@ -127,6 +128,7 @@ void Player::Update() {
 }
 
 void Player::Draw() {
+	Object3d::PreDraw(DirectXBase::GetInstance()->GetCmdList());
 	objChr->Draw();
-
+	Object3d::PostDraw();
 }

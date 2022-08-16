@@ -61,8 +61,8 @@ void GamePlay::Draw() {
 	Object3d::PreDraw(DirectXBase::GetInstance()->GetCmdList());
 	objblock->Draw();
 	//fbxObject1->Draw(DirectXBase::GetInstance()->GetCmdList());
-	player->Draw();
 	Object3d::PostDraw();
+	player->Draw();
 	SpriteBase::GetInstance()->PreDraw();
 	for (auto& sprite : sprites)
 	{
