@@ -153,7 +153,7 @@
     <ClCompile Include="Noise.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SampleNoise.cpp">
+    <ClCompile Include="SNoise.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -267,7 +267,7 @@
     <ClInclude Include="Noise.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SampleNoise.h">
+    <ClInclude Include="SNoise.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">

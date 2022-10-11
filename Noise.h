@@ -25,7 +25,7 @@ public:
 
 	float SampleGrad(unsigned int hash, float a, float b);
 
-	float SamplePNoise(float x, float y);
+	float SecondPNoise(float x, float z);
 
 	float SampleOctavePerlinNoise(float x, float y);
 

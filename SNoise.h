@@ -1,15 +1,13 @@
-#pragma once
-class SampleNoise
-{
-	
-};
+//#pragma once
+//class SNoise
+//{
+//public:
+//	int repeat;
+//	SNoise(int repeat = -1);
+//public:
+//	float OctavePerlin(float x, float y, float z, int octaves, float persistence);
+//};
 //public class Perlin {
-//
-//	public int repeat;
-//
-//	public Perlin(int repeat = -1) {
-//		this.repeat = repeat;
-//	}
 //
 //	public double OctavePerlin(double x, double y, double z, int octaves, double persistence) {
 //		double total = 0;

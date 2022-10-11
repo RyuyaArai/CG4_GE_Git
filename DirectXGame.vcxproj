@@ -175,7 +175,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Noise.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SampleNoise.cpp" />
+    <ClCompile Include="SNoise.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DirectXTex\DirectXTex_Desktop_2019_Win10.vcxproj">
@@ -286,7 +286,7 @@
     <ClInclude Include="Game\Scene\Title.h" />
     <ClInclude Include="Noise.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SampleNoise.h" />
+    <ClInclude Include="SNoise.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

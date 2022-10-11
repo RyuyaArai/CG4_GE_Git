@@ -17,6 +17,7 @@ private: // エイリアス
 	using XMFLOAT2 = DirectX::XMFLOAT2;
 	using XMFLOAT3 = DirectX::XMFLOAT3;
 	using XMFLOAT4 = DirectX::XMFLOAT4;
+	using XMVECTOR = DirectX::XMVECTOR;
 	using XMMATRIX = DirectX::XMMATRIX;
 
 
@@ -31,28 +32,17 @@ public:
 
 	void Draw() override;
 private:
-	//初期化処理
+	//初期化用処理
 	void Create3D_object();
 	void Create2D_object();
 	void SpriteLoadTex();
 	void CameraCreateSet();
 	void VariableInitialize();
-	void CameraUpdate();
 private:
 	//更新
 	void ChangeScene();
 	void ClassUpdate();
-
-private:
-	static const int MaxModel = 30;
-
-	enum {
-		post,
-		chara
-	};
-
-	ObjModel* objModel[MaxModel] = { nullptr };
-	Object3d* obj3dObj[MaxModel] = { nullptr };
+	void CameraUpdate();
 
 private:
 
@@ -68,9 +58,14 @@ private:
 	
 	FbxObject3d* fbxObject1 = nullptr;
 	
-	DebugCamera* camera = nullptr;
 	std::vector<Sprite*> sprites;
 
+	DebugCamera* camera = nullptr;
+	XMMATRIX matRot = DirectX::XMMatrixIdentity();
+	const float PI = 3.1415926f;
+	const float ROT_UINT = 0.1f;
+	float angleX = 0, angleY = 0, angleZ = 0;
+	float rotX = 0.0f, rotY = 0.0f, rotZ = 0.0f;
 
 };
 

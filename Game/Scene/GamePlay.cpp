@@ -7,6 +7,8 @@
 #include "FbxObject3d.h"
 #include "Noise.h"
 
+using namespace DirectX;
+
 GamePlay::GamePlay(SceneManager* sceneManager)
 	:SceneBase(sceneManager)
 {
@@ -14,8 +16,7 @@ GamePlay::GamePlay(SceneManager* sceneManager)
 
 void GamePlay::Initialize() {
 
-	FbxObject3d::SetDevice(DirectXBase::GetInstance()->GetDev());
-	FbxObject3d::CreateGraphicsPipeline();
+
 	VariableInitialize();
 	CameraCreateSet();
 	SpriteLoadTex();
@@ -41,20 +42,13 @@ void GamePlay::Finalize() {
 void GamePlay::Update() {
 	Input* input = Input::GetInstance();
 
-
-	if (input->TriggerKey(DIK_0)) {
-
-		OutputDebugStringA("Hit 0\n");  // 出力ウィンドウに「Hit 0」と表示
-	}
-
 	ClassUpdate();
 
+	//----------デバッグ用-----------------------------
 	if (input->TriggerKey(DIK_RETURN)) {
-		/*	Noise* noise = new Noise();
-			noise->SampleOctavePerlinNoise(5.0f, 2.0f);*/
-
 		ChangeScene();
 	}
+	//----------ここまで-------------------------------
 }
 
 void GamePlay::Draw() {
@@ -71,6 +65,9 @@ void GamePlay::Draw() {
 }
 
 void GamePlay::Create3D_object() {
+
+	FbxObject3d::SetDevice(DirectXBase::GetInstance()->GetDev());
+	FbxObject3d::CreateGraphicsPipeline();
 
 	modelblock = ObjModel::LoadFromOBJ("block");
 
@@ -121,23 +118,6 @@ void GamePlay::Create2D_object() {
 	//}
 }
 
-void GamePlay::ChangeScene() {
-
-	SceneBase* scene = new Title(sceneManager_);
-	sceneManager_->SetNextScene(scene);
-}
-
-void GamePlay::ClassUpdate() {
-	player->Update();
-	objblock->Update();
-	//fbxObject1->Update();
-	for (auto& sprite : sprites)
-	{
-		sprite->Update();
-	}
-	CameraUpdate();
-}
-
 void GamePlay::SpriteLoadTex() {
 	SpriteBase* spriteCommon = SpriteBase::GetInstance();
 	spriteCommon->LoadTexture(0, L"Resources/texture.png");
@@ -163,8 +143,58 @@ void GamePlay::VariableInitialize() {
 void GamePlay::CameraUpdate() {
 
 	XMFLOAT3 chrpos = player->GetPosition();
-	camera->SetTarget({ chrpos.x,chrpos.y + 40.0f,chrpos.z - 60.0f });
-	camera->SetDistance(20.0f);
-	camera->SetEye({ chrpos.x,chrpos.y,chrpos.z });
+	XMVECTOR vTargetEye = { 0.0f,40.0f,60.0f,1.0f };
+	XMVECTOR vUp = { 0.0f, 1.0f, 0.0f, 0.0f };
+	vTargetEye = XMVector3Transform(vTargetEye, matRot);
+	vUp = XMVector3Transform(vUp, matRot);
+	float length = 0;
+	XMFLOAT3 target1 = camera->GetTarget();
+	camera->SetEye(
+		{
+			target1.x + vTargetEye.m128_f32[0],
+			target1.y + vTargetEye.m128_f32[1],
+			target1.z + vTargetEye.m128_f32[2]
+		});
+	camera->SetUp({ vUp.m128_f32[0], vUp.m128_f32[1], vUp.m128_f32[2] });
+	// 注視点からずらした位置に視点座標を決定
+	XMFLOAT3 target2 = camera->GetTarget();
+	XMFLOAT3 eye = camera->GetEye();
+
+	XMFLOAT3 fTargetEye = { 0.0f, 0.0f, 0.0f };
+
+	// 大きさ計算
+	length = sqrtf(pow(target2.x - eye.x, 2) + pow(target2.y - eye.y, 2) + pow(target2.z - eye.z, 2));
+	fTargetEye.x = eye.x - target2.x;
+	fTargetEye.y = eye.y - target2.y;
+	fTargetEye.z = eye.z - target2.z;
+
+	fTargetEye.x /= length;
+	fTargetEye.y /= length;
+	fTargetEye.z /= length;
+
+	fTargetEye.x *= 17;
+	fTargetEye.y *= 17;
+	fTargetEye.z *= 17;
+
+	//camera->SetTarget({ chrpos.x,chrpos.y + 40.0f,chrpos.z - 60.0f });
+	//camera->SetDistance(20.0f);
+	//camera->SetEye({ chrpos.x,chrpos.y,chrpos.z });
 	camera->Update();
+}
+
+void GamePlay::ChangeScene() {
+
+	SceneBase* scene = new Title(sceneManager_);
+	sceneManager_->SetNextScene(scene);
+}
+
+void GamePlay::ClassUpdate() {
+	player->Update();
+	objblock->Update();
+	//fbxObject1->Update();
+	for (auto& sprite : sprites)
+	{
+		sprite->Update();
+	}
+	CameraUpdate();
 }

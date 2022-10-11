@@ -4,6 +4,7 @@
 
 #define HASH_CODE_MAX       (256)
 #define HASH_CODE_TABLE_NUM     (HASH_CODE_MAX*2)
+#define COUNTOF(a) ( sizeof( a ) / sizeof( a[0] ) )
 
 int g_HashCode[HASH_CODE_TABLE_NUM] = {};
 
@@ -44,6 +45,27 @@ float Noise::ThreeDimensionalWavelet(float x, float y, float z, float ax, float 
 	return W;
 }
 
+void SettingHash(unsigned int seed)
+{
+    //乱数ライブラリ初期化.
+    srand(seed);
+
+    //ハッシュコード初期化.
+    memset(g_HashCode, 0, sizeof(unsigned int) * COUNTOF(g_HashCode));
+
+    //ランダムテーブル生成.
+    const int TABLE_NUM = HASH_CODE_MAX;
+    unsigned int randomTable[TABLE_NUM] = {};
+    for (int i = 0; i < COUNTOF(randomTable); ++i) {
+        randomTable[i] = rand() % HASH_CODE_MAX;
+    }
+
+    //ハッシュコード生成.
+    for (int i = 0; i < COUNTOF(g_HashCode); ++i) {
+        g_HashCode[i] = randomTable[i % TABLE_NUM];
+    }
+}
+
 float Noise::Fade(float t) {
     //Ken Perlin氏(パーリンノイズを作った人)が考えだした補間関数.
     //6x^5 - 15x^4 + 10x^3.
@@ -73,28 +95,28 @@ float Noise::SampleGrad(unsigned int hash, float a, float b) {
     return 0.0f;
 }
 
-float Noise::SamplePNoise(float x, float y) {
+float Noise::SecondPNoise(float x, float z) {
 
     //整数部と小数部に分ける.
     int xi = (int)floorf(x);
-    int yi = (int)floorf(y);
+    int zi = (int)floorf(z);
     float xf = x - xi;
-    float yf = y - yi;
+    float zf = z - zi;
 
     //格子点からハッシュを取り出し，その値を基に勾配を取得する.
-    float a00 = SampleGrad(GetHash(xi, yi), xf, yf);
-    float a10 = SampleGrad(GetHash(xi + 1, yi), xf - 1.0f, yf);
-    float a01 = SampleGrad(GetHash(xi, yi + 1), xf, yf - 1.0f);
-    float a11 = SampleGrad(GetHash(xi + 1, yi + 1), xf - 1.0f, yf - 1.0f);
+    float a00 = SampleGrad(GetHash(xi, zi), xf, zf);
+    float a10 = SampleGrad(GetHash(xi + 1, zi), xf - 1.0f, zf);
+    float a01 = SampleGrad(GetHash(xi, zi + 1), xf, zf - 1.0f);
+    float a11 = SampleGrad(GetHash(xi + 1, zi + 1), xf - 1.0f, zf - 1.0f);
 
     //補間をかける.
     xf = Fade(xf);
-    yf = Fade(yf);
+    zf = Fade(zf);
 
     //位置に合わせて格子点のどの点から一番影響を受けるかを決める.
     //(勾配関数内で内積を取っているので，ベクトルの向きによっては負の値が出る．範囲は-1.0f~1.0f).
     //(なので，正の値にするために1.0fを足して2.0fで割っている).
-    return (Lerp(Lerp(a00, a10, xf), Lerp(a01, a11, xf), yf) + 1.0f) / 2.0f;
+    return (Lerp(Lerp(a00, a10, xf), Lerp(a01, a11, xf), zf) + 1.0f) / 2.0f;
 }
 
 float Noise::SampleOctavePerlinNoise(float x, float y) {
@@ -105,7 +127,7 @@ float Noise::SampleOctavePerlinNoise(float x, float y) {
     float totalValue = 0.0f;
     float per = 0.5f;
     for (int i = 0; i < 5; ++i) {
-        totalValue += a * SamplePNoise(x * f, y * f);
+        totalValue += a * SecondPNoise(x * f, y * f);
         maxValue += a;
         a *= per;
         f *= 2.0f;
